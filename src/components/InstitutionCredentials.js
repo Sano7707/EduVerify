@@ -1,0 +1,84 @@
+import React, { useState, useEffect } from 'react';
+import { Card, ListGroup, Spinner, Alert } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import { getFileDownloadLink } from '../utils/pinata';
+
+const InstitutionCredentials = ({ contract, account }) => {
+  const [issuedCredentials, setIssuedCredentials] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const loadCredentials = async () => {
+      try {
+        const credentialIds = await contract.getInstitutionCredentials(account);
+        
+        const creds = await Promise.all(
+          credentialIds.map(async (id) => {
+            const data = await contract.verifyCredential(id);
+            return {
+              id,
+              studentName: data[0],
+              institution: data[1],
+              degree: data[2],
+              issueDate: new Date(Number(data[3]) * 1000).toLocaleDateString(),
+              cid: data[4]  // Now using CID
+            };
+          })
+        );
+        
+        setIssuedCredentials(creds);
+      } catch (err) {
+        setError('Failed to load credentials');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (account && contract) {
+      loadCredentials();
+    }
+  }, [contract, account]);
+
+  return (
+    
+    <Card className="mb-4 shadow-sm">
+      <Card.Body>
+        <Card.Title>Issued Credentials</Card.Title>
+        
+        {loading && <Spinner animation="border" />}
+        {error && <Alert variant="danger">{error}</Alert>}
+        
+        {!loading && issuedCredentials.length === 0 && (
+          <Alert variant="info">No credentials issued yet</Alert>
+        )}
+        
+        {issuedCredentials.length > 0 && (
+          <ListGroup>
+            {issuedCredentials.map((cred, index) => (
+      <ListGroup.Item key={index}>
+        <div className="d-flex justify-content-between">
+          <div>
+            <h6>{cred.degree}</h6>
+            <div>Student: {cred.studentName}</div>
+            <div>Issued: {cred.issueDate}</div>
+            <div className="text-muted small">CID: {cred.cid.substring(0, 12)}...</div>
+          </div>
+          <Button 
+            variant="link"
+            href={getFileDownloadLink(cred.cid)}
+            target="_blank"
+          >
+            View Document
+          </Button>
+        </div>
+      </ListGroup.Item>
+    ))}
+          </ListGroup>
+        )}
+      </Card.Body>
+    </Card>
+  );
+};
+
+export default InstitutionCredentials;
