@@ -65,7 +65,10 @@ const InstitutionView = ({ contract, account }) => {
               >
                 {showIssueForm ? "Cancel" : "Issue New Credential"}
               </Button>
-                 <div eventKey="verify" title="Verify Credentials">
+              
+      
+            </div>
+             <div eventKey="verify" title="Verify Credentials">
           <Card className="shadow-sm">
             <Card.Body>
               <Card.Title>Verify Academic Credentials</Card.Title>
@@ -76,9 +79,6 @@ const InstitutionView = ({ contract, account }) => {
             </Card.Body>
           </Card>
         </div>
-              
-      
-            </div>
             
             {showIssueForm && (
               <IssueCredential contract={contract} account={account} />

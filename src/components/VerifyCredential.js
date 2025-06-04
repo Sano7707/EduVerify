@@ -22,11 +22,9 @@ const VerifyCredential = ({ contract }) => {
     setVerificationResult(null);
     
     try {
-      // Use getCredentialByCID instead of verifyCredential
       const credential = await contract.getCredentialByCID(cid);
       const addressMatches = credential.studentAddress.toLowerCase() === studentAddress.toLowerCase();
 
-      // Check if credential exists
       if (!addressMatches) {
         setVerificationResult({
           valid: false,
@@ -35,7 +33,6 @@ const VerifyCredential = ({ contract }) => {
         return;
       }
             
-      // Prepare result
       setCredentialData({
         studentName: credential.studentName,
         institution: credential.institution,
@@ -49,7 +46,6 @@ const VerifyCredential = ({ contract }) => {
       setVerificationResult({
         valid: addressMatches,
         message: "Credential is valid and matches student address" 
-         
       });
       
     } catch (err) {
@@ -61,6 +57,15 @@ const VerifyCredential = ({ contract }) => {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Reset form function
+  const resetForm = () => {
+    setCid('');
+    setStudentAddress('');
+    setCredentialData(null);
+    setVerificationResult(null);
+    setError('');
   };
 
   const renderDocument = () => {
@@ -89,8 +94,6 @@ const VerifyCredential = ({ contract }) => {
   return (
     <Card className="shadow-sm">
       <Card.Body>
-        <Card.Title>Verify Credential</Card.Title>
-        
         <Form>
           <Form.Group className="mb-3">
             <Form.Label>Document CID</Form.Label>
@@ -100,6 +103,7 @@ const VerifyCredential = ({ contract }) => {
               onChange={(e) => setCid(e.target.value)}
               placeholder="Enter document CID"
               required
+              disabled={loading}
             />
             <Form.Text className="text-muted">
               Found at the bottom of your credential document
@@ -114,20 +118,32 @@ const VerifyCredential = ({ contract }) => {
               onChange={(e) => setStudentAddress(e.target.value)}
               placeholder="Enter student's wallet address"
               required
+              disabled={loading}
             />
           </Form.Group>
           
-          <Button 
-            variant="primary" 
-            onClick={handleVerify}
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <Spinner animation="border" size="sm" /> Verifying...
-              </>
-            ) : 'Verify Credential'}
-          </Button>
+          <div className="d-flex gap-2">
+            <Button 
+              variant="primary" 
+              onClick={handleVerify}
+              disabled={loading || !cid || !studentAddress}
+            >
+              {loading ? (
+                <>
+                  <Spinner animation="border" size="sm" /> Verifying...
+                </>
+              ) : 'Verify Credential'}
+            </Button>
+            
+            {/* Clear button to reset entire form */}
+            <Button 
+              variant="outline-secondary" 
+              onClick={resetForm}
+              disabled={loading}
+            >
+              Clear
+            </Button>
+          </div>
         </Form>
         
         {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
@@ -152,7 +168,6 @@ const VerifyCredential = ({ contract }) => {
               <p><strong>Student Address:</strong> {credentialData.studentAddress}</p>
               <p><strong>Document CID:</strong> {credentialData.cid}</p>
               
-              {/* Document preview section */}
               {renderDocument()}
             </div>
           </div>
