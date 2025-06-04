@@ -22,43 +22,42 @@ const VerifyCredential = ({ contract }) => {
     setVerificationResult(null);
     
     try {
-      // Use new CID-based verification
-      const data = await contract.getCredentialByCID(cid);
-      
+      // Use getCredentialByCID instead of verifyCredential
+      const credential = await contract.getCredentialByCID(cid);
+      const addressMatches = credential.studentAddress.toLowerCase() === studentAddress.toLowerCase();
+
       // Check if credential exists
-      if (data.studentAddress === '0x0000000000000000000000000000000000000000') {
+      if (!addressMatches) {
         setVerificationResult({
           valid: false,
           message: "Credential not found"
         });
         return;
       }
-      
-      // Verify student address matches
-      const addressMatches = data.studentAddress.toLowerCase() === studentAddress.toLowerCase();
-      
+            
       // Prepare result
       setCredentialData({
-        credentialId: data.credentialId,
-        studentName: data.studentName,
-        institution: data.institution,
-        degree: data.degree,
-        issueDate: new Date(Number(data.issueDate) * 1000).toLocaleDateString(),
-        issuer: data.issuer,
-        studentAddress: data.studentAddress,
-        cid: data.fileId
+        studentName: credential.studentName,
+        institution: credential.institution,
+        degree: credential.degree,
+        issueDate: new Date(Number(credential.issueDate) * 1000).toLocaleDateString(),
+        issuer: credential.issuer,
+        studentAddress: credential.studentAddress,
+        cid: credential.cid
       });
       
       setVerificationResult({
         valid: addressMatches,
-        message: addressMatches 
-          ? "Credential is valid and matches student address" 
-          : "Credential does not match provided student address"
+        message: "Credential is valid and matches student address" 
+         
       });
       
     } catch (err) {
       console.error('Verification error:', err);
-      setError('Failed to verify credential: ' + err.message);
+      setVerificationResult({
+        valid: false,
+        message: "Credential not found"
+      });
     } finally {
       setLoading(false);
     }
@@ -138,11 +137,6 @@ const VerifyCredential = ({ contract }) => {
             <Alert variant={verificationResult.valid ? "success" : "warning"}>
               <h5>Verification Result</h5>
               <p>{verificationResult.message}</p>
-              {verificationResult.valid && credentialData && (
-                <p className="mb-0">
-                  Credential ID: {credentialData.credentialId}
-                </p>
-              )}
             </Alert>
           </div>
         )}
@@ -156,6 +150,7 @@ const VerifyCredential = ({ contract }) => {
               <p><strong>Issued Date:</strong> {credentialData.issueDate}</p>
               <p><strong>Issuer Address:</strong> {credentialData.issuer}</p>
               <p><strong>Student Address:</strong> {credentialData.studentAddress}</p>
+              <p><strong>Document CID:</strong> {credentialData.cid}</p>
               
               {/* Document preview section */}
               {renderDocument()}

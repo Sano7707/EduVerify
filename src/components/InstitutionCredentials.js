@@ -11,24 +11,28 @@ const InstitutionCredentials = ({ contract, account }) => {
   useEffect(() => {
     const loadCredentials = async () => {
       try {
+        // Get all credential IDs issued by this institution
         const credentialIds = await contract.getInstitutionCredentials(account);
         
         const creds = await Promise.all(
           credentialIds.map(async (id) => {
-            const data = await contract.verifyCredential(id);
+            // Get full credential details from contract
+            const credential = await contract.getCredential(id);
+            
             return {
               id,
-              studentName: data[0],
-              institution: data[1],
-              degree: data[2],
-              issueDate: new Date(Number(data[3]) * 1000).toLocaleDateString(),
-              cid: data[4]  // Now using CID
+              studentName: credential.studentName,
+              institution: credential.institution,
+              degree: credential.degree,
+              issueDate: new Date(Number(credential.issueDate) * 1000).toLocaleDateString(),
+              cid: credential.cid
             };
           })
         );
         
         setIssuedCredentials(creds);
       } catch (err) {
+        console.error("Error loading credentials:", err);
         setError('Failed to load credentials');
       } finally {
         setLoading(false);
@@ -41,7 +45,6 @@ const InstitutionCredentials = ({ contract, account }) => {
   }, [contract, account]);
 
   return (
-    
     <Card className="mb-4 shadow-sm">
       <Card.Body>
         <Card.Title>Issued Credentials</Card.Title>
@@ -56,24 +59,26 @@ const InstitutionCredentials = ({ contract, account }) => {
         {issuedCredentials.length > 0 && (
           <ListGroup>
             {issuedCredentials.map((cred, index) => (
-      <ListGroup.Item key={index}>
-        <div className="d-flex justify-content-between">
-          <div>
-            <h6>{cred.degree}</h6>
-            <div>Student: {cred.studentName}</div>
-            <div>Issued: {cred.issueDate}</div>
-            <div className="text-muted small">CID: {cred.cid.substring(0, 12)}...</div>
-          </div>
-          <Button 
-            variant="link"
-            href={getFileDownloadLink(cred.cid)}
-            target="_blank"
-          >
-            View Document
-          </Button>
-        </div>
-      </ListGroup.Item>
-    ))}
+              <ListGroup.Item key={index}>
+                <div className="d-flex justify-content-between">
+                  <div>
+                    <h6>{cred.degree}</h6>
+                    <div>Student: {cred.studentName}</div>
+                    <div>Issued: {cred.issueDate}</div>
+                    <div className="text-muted small">
+                      CID: {cred.cid}
+                    </div>
+                  </div>
+                  <Button 
+                    variant="link"
+                    href={getFileDownloadLink(cred.cid)}
+                    target="_blank"
+                  >
+                    View Document
+                  </Button>
+                </div>
+              </ListGroup.Item>
+            ))}
           </ListGroup>
         )}
       </Card.Body>

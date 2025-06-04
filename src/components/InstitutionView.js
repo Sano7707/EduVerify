@@ -1,75 +1,96 @@
-import React, { useState } from 'react';
-import { Card, Alert, Button, Badge } from 'react-bootstrap';
+import React, { useState,useEffect } from 'react';
+import { Spinner } from 'react-bootstrap'; // Fixed Spinner import
+import { Card, Alert, Button , Tab} from 'react-bootstrap';
 import IssueCredential from './IssueCredential';
-import VerifyCredential from './VerifyCredential';
 import InstitutionCredentials from './InstitutionCredentials';
+import VerifyCredential from './VerifyCredential';
 
-const InstitutionView = ({ contract, account, isInstitution }) => {
-const [showIssueForm, setShowIssueForm] = useState(false);
 
-  
+const InstitutionView = ({ contract, account }) => {
+  const [showIssueForm, setShowIssueForm] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuthorization = async () => {
+      try {
+        const authorized = await contract.authorizedInstitutions(account);
+        setIsAuthorized(authorized);
+      } catch (err) {
+        console.error('Authorization check failed:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    checkAuthorization();
+  }, [contract, account]);
+
+  if (loading) {
+    return (
+      <div className="text-center my-4">
+        <Spinner animation="border" />
+        <p>Checking institution status...</p>
+      </div>
+    );
+  }
 
   return (
-    
     <>
-    {isInstitution && (
-    <Card className="mb-4 shadow-sm">
-        <Card.Body>
-        <div className="d-flex justify-content-between align-items-center">
-            <div>
-            <Card.Title>Institution Management</Card.Title>
-            <Card.Subtitle className="text-muted">
-                {account}
-            </Card.Subtitle>
-            </div>
-            <Badge bg={isInstitution ? "success" : "warning"}>
-            {isInstitution ? "Authorized" : "Pending Authorization"}
-            </Badge>
-        </div>
-        
-        {!isInstitution && (
-            <Alert variant="warning" className="mt-3">
-            <p className="mb-0">
-                Your institution is not yet authorized to issue credentials.
-                Please contact the admin to request authorization.
-            </p>
+      {!isAuthorized ? (
+        <Card className="mb-4 shadow-sm">
+          <Card.Body>
+            <Alert variant="warning">
+              <h5>Institution Authorization Required</h5>
+              <p className="mb-0">
+                Your wallet is not authorized as an institution. Please contact a governor to 
+                submit an "Add Institution" proposal for your address.
+              </p>
             </Alert>
-        )}
-        </Card.Body>
-    </Card>
-    )}
-
-      {!isInstitution && (
-        <Alert variant="warning" className="mb-4">
-          Your wallet is not authorized as an institution. Only authorized institutions can issue credentials.
-        </Alert>
-      )}
-
-      <Card className="mb-4 shadow-sm">
-        <Card.Body>
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <Card.Title>Institution Dashboard</Card.Title>
-            {isInstitution && (
+          </Card.Body>
+        </Card>
+      ) : (
+        <Card className="mb-4 shadow-sm">
+          <Card.Body>
+            <div className="d-flex justify-content-between align-items-center">
+              <div>
+                <Card.Title>Institution Dashboard</Card.Title>
+                <Card.Subtitle className="text-muted">
+                  {account}
+                </Card.Subtitle>
+              </div>
               <Button 
                 variant={showIssueForm ? "secondary" : "primary"} 
                 onClick={() => setShowIssueForm(!showIssueForm)}
               >
                 {showIssueForm ? "Cancel" : "Issue New Credential"}
               </Button>
+                 <div eventKey="verify" title="Verify Credentials">
+          <Card className="shadow-sm">
+            <Card.Body>
+              <Card.Title>Verify Academic Credentials</Card.Title>
+              <p className="text-muted">
+                As a verifier, you can check the authenticity of any credential
+              </p>
+              <VerifyCredential contract={contract} />
+            </Card.Body>
+          </Card>
+        </div>
+              
+      
+            </div>
+            
+            {showIssueForm && (
+              <IssueCredential contract={contract} account={account} />
             )}
-          </div>
-          
-          {showIssueForm && isInstitution && (
-            <IssueCredential contract={contract} account={account} />
-          )}
-        </Card.Body>
-      </Card>
+          </Card.Body>
+        </Card>
+      )}
+    
 
-      {isInstitution && (
+      {isAuthorized && (
         <InstitutionCredentials contract={contract} account={account} />
       )}
-
-      <VerifyCredential />
     </>
   );
 };

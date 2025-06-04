@@ -6,171 +6,85 @@ contract EduVerify {
         string studentName;
         string institution;
         string degree;
-        uint issueDate;
-        string fileId;  // Changed from ipfsHash to fileId for clarity
+        uint256 issueDate;
+        string cid;
         address issuer;
         address studentAddress;
     }
 
-    mapping(string => Credential) private credentials;
-    mapping(string => string) public cidToCredentialId;  // CID to credential ID mapping
-    address public owner;
+    address public adminContract;
     mapping(address => bool) public authorizedInstitutions;
+    mapping(string => Credential) public credentials;
+    mapping(address => string[]) public studentCredentials;
     mapping(address => string[]) public institutionCredentials;
-    mapping(address => string[]) private studentCredentials;
-    
-    // Track all institutions for admin view
-    address[] private allInstitutions;
-    uint private authorizedCount;
-    
-    event CredentialIssued(string indexed credentialId, address indexed studentAddress);
+    mapping(string => string) public cidToCredentialId;
+
+    event CredentialIssued(string indexed credentialId, address indexed student);
     event InstitutionAuthorized(address indexed institution);
     event InstitutionRevoked(address indexed institution);
 
-    constructor() {
-        owner = msg.sender;
+    constructor(address _adminContract) {
+        adminContract = _adminContract;
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Not owner");
+    modifier onlyAdmin() {
+        require(msg.sender == adminContract, "Not authorized");
         _;
     }
 
-    modifier onlyAuthorized() {
-        require(authorizedInstitutions[msg.sender], "Not authorized institution");
-        _;
+    function authorizeInstitution(address institution) external onlyAdmin {
+        authorizedInstitutions[institution] = true;
+        emit InstitutionAuthorized(institution);
     }
 
-    // Institution management
-    function authorizeInstitution(address _institution) external onlyOwner {
-        require(!authorizedInstitutions[_institution], "Already authorized");
-        authorizedInstitutions[_institution] = true;
-        allInstitutions.push(_institution);
-        authorizedCount++;
-        emit InstitutionAuthorized(_institution);
+    function revokeInstitution(address institution) external onlyAdmin {
+        authorizedInstitutions[institution] = false;
+        emit InstitutionRevoked(institution);
     }
 
-    function revokeInstitution(address _institution) external onlyOwner {
-        require(authorizedInstitutions[_institution], "Not authorized");
-        authorizedInstitutions[_institution] = false;
-        authorizedCount--;
-        emit InstitutionRevoked(_institution);
-    }
-
-    function getAuthorizedInstitutions() external view returns (address[] memory) {
-        address[] memory institutions = new address[](authorizedCount);
-        uint count = 0;
-        for(uint i = 0; i < allInstitutions.length; i++) {
-            if(authorizedInstitutions[allInstitutions[i]]) {
-                institutions[count] = allInstitutions[i];
-                count++;
-            }
-        }
-        return institutions;
-    }
-
-    // Credential management
     function issueCredential(
-        string memory _credentialId,
-        string memory _studentName,
-        address _studentAddress,
-        string memory _institution,
-        string memory _degree,
-        string memory _fileId  // CID of the document
-    ) external onlyAuthorized {
-        require(bytes(_fileId).length > 0, "Invalid file ID");
-        require(bytes(credentials[_credentialId].fileId).length == 0, "Credential ID exists");
+        string memory credentialId,
+        string memory studentName,
+        address studentAddress,
+        string memory institution,
+        string memory degree,
+        string memory cid
+    ) external {
+        require(authorizedInstitutions[msg.sender], "Not authorized");
+        require(bytes(credentials[credentialId].degree).length == 0, "Credential exists");
         
-        credentials[_credentialId] = Credential({
-            studentName: _studentName,
-            institution: _institution,
-            degree: _degree,
+        credentials[credentialId] = Credential({
+            studentName: studentName,
+            institution: institution,
+            degree: degree,
             issueDate: block.timestamp,
-            fileId: _fileId,
+            cid: cid,
             issuer: msg.sender,
-            studentAddress: _studentAddress
+            studentAddress: studentAddress
         });
         
-        // Map CID to credential ID
-        cidToCredentialId[_fileId] = _credentialId;
+        studentCredentials[studentAddress].push(credentialId);
+        institutionCredentials[msg.sender].push(credentialId);
+        cidToCredentialId[cid] = credentialId;
         
-        // Add credential to student's list
-        studentCredentials[_studentAddress].push(_credentialId);
-        
-        // Add credential to institution's list
-        institutionCredentials[msg.sender].push(_credentialId);
-        
-        emit CredentialIssued(_credentialId, _studentAddress);
+        emit CredentialIssued(credentialId, studentAddress);
     }
 
-    // Verification functions
-    function getCredentialByCID(string memory _cid)
-        external
-        view
-        returns (
-            string memory credentialId,
-            string memory studentName,
-            string memory institution,
-            string memory degree,
-            uint issueDate,
-            string memory fileId,
-            address issuer,
-            address studentAddress
-        )
-    {
-        credentialId = cidToCredentialId[_cid];
-        require(bytes(credentialId).length > 0, "Credential not found for CID");
-        
-        Credential memory cred = credentials[credentialId];
-        return (
-            credentialId,
-            cred.studentName,
-            cred.institution,
-            cred.degree,
-            cred.issueDate,
-            cred.fileId,
-            cred.issuer,
-            cred.studentAddress
-        );
+    function getCredential(string memory credentialId) public view returns (Credential memory) {
+        return credentials[credentialId];
     }
 
-    function verifyCredential(string memory _credentialId)
-        external
-        view
-        returns (
-            string memory studentName,
-            string memory institution,
-            string memory degree,
-            uint issueDate,
-            string memory fileId,
-            address issuer,
-            address studentAddress
-        )
-    {
-        Credential memory cred = credentials[_credentialId];
-        require(bytes(cred.fileId).length > 0, "Credential not found");
-        return (
-            cred.studentName,
-            cred.institution,
-            cred.degree,
-            cred.issueDate,
-            cred.fileId,
-            cred.issuer,
-            cred.studentAddress
-        );
+    function getCredentialByCID(string memory cid) public view returns (Credential memory) {
+        string memory credentialId = cidToCredentialId[cid];
+        require(bytes(credentialId).length > 0, "Credential not found");
+        return credentials[credentialId];
     }
 
-    // Get credentials
-    function getStudentCredentials(address _student) external view returns (string[] memory) {
-        return studentCredentials[_student];
+    function getStudentCredentials(address student) public view returns (string[] memory) {
+        return studentCredentials[student];
     }
 
-    function getInstitutionCredentials(address _institution) external view returns (string[] memory) {
-        return institutionCredentials[_institution];
-    }
-
-    // Admin functions
-    function isOwner() external view returns (bool) {
-        return msg.sender == owner;
+    function getInstitutionCredentials(address institution) public view returns (string[] memory) {
+        return institutionCredentials[institution];
     }
 }

@@ -1,33 +1,25 @@
 import React from 'react';
 import { Container, Navbar, Badge } from 'react-bootstrap';
 
-const CustomNavbar = ({ account, isInstitution, role, isOwner }) => {
+const CustomNavbar = ({ account, role }) => {
   const getRoleBadge = () => {
     if (!account) return null;
     
+    if (role === 'governor') {
+      return <Badge bg="danger" className="ms-2">Governor</Badge>;
+    }
+    
     if (role === 'institution') {
-      return isInstitution ? (
-        <Badge bg="success" className="ms-2">Authorized Institution</Badge>
-      ) : (
-        <Badge bg="warning" className="ms-2">Unverified Institution</Badge>
-      );
+      return <Badge bg="success" className="ms-2">Institution</Badge>;
     }
     
-    if (role === 'admin') {
-      return isOwner ? (
-        <Badge bg="danger" className="ms-2">Admin</Badge>
-      ) : (
-        <Badge bg="secondary" className="ms-2">Unauthorized</Badge>
-      );
-    }
-    
-    return <Badge bg="info" className="ms-2">Student</Badge>;
+    return <Badge bg="info" className="ms-2">Student/Verifier</Badge>;
   };
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="#">
+        <Navbar.Brand href="/">
           <span className="fw-bold">EduVerify</span>
           <span className="ms-2 text-muted">Academic Credentials</span>
         </Navbar.Brand>
@@ -41,7 +33,7 @@ const CustomNavbar = ({ account, isInstitution, role, isOwner }) => {
               </Navbar.Text>
             </div>
           ) : (
-            <div className="text-light">Select your role to begin</div>
+            <div className="text-light">Connect your wallet</div>
           )}
         </Navbar.Collapse>
       </Container>
