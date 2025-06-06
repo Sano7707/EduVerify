@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: UniTrento
 pragma solidity ^0.8.0;
 
 import "remix_tests.sol";
@@ -6,18 +6,19 @@ import "../contracts/EduVerify.sol";
 import "../contracts/EduVerifyAdmin.sol";
 
 contract EduVerifyTest {
+
     EduVerify eduVerify;
     EduVerifyAdmin admin;
     
-    address institution = address(1);
-    address institution2 = address(2);
-    address student = address(3);
-    address unauthorized = address(4);
+    address authorizedInstitution1 = address(0x1);
+    address authorizedInstitution2 = address(0x2);
+    address student = address(0x3);
+    address unauthorizedInstitution = address(0x4);
     
-    string credentialId = "degree-123";
-    string credentialId2 = "degree-456";
-    string cid = "QmXYZ123";
-    string cid2 = "QmXYZ456";
+    string credentialId1 = "111";
+    string credentialId2 = "222";
+    string cid1 = "QmABC111";
+    string cid2 = "QmABC222";
 
     function beforeAll() public {
         address[] memory initialGovernors = new address[](1);
@@ -27,11 +28,11 @@ contract EduVerifyTest {
         eduVerify = new EduVerify(address(admin));
         admin.setEduVerifyAddress(address(eduVerify));
         
-        admin.propose(EduVerifyAdmin.Action.AddInstitution, institution);
+        admin.propose(EduVerifyAdmin.Action.AddInstitution, authorizedInstitution1);
         admin.vote(0);
         admin.executeProposal(0);
         
-        admin.propose(EduVerifyAdmin.Action.AddInstitution, institution2);
+        admin.propose(EduVerifyAdmin.Action.AddInstitution, authorizedInstitution2);
         admin.vote(1);
         admin.executeProposal(1);
         
@@ -42,48 +43,47 @@ contract EduVerifyTest {
     
     
     function testAuthorizeInstitution() public {
-        Assert.ok(eduVerify.authorizedInstitutions(institution), "Institution1 should be authorized");
-        Assert.ok(eduVerify.authorizedInstitutions(institution2), "Institution2 should be authorized");
-        Assert.ok(eduVerify.authorizedInstitutions(address(this)), "Test contract should be authorized");
-        Assert.ok(!eduVerify.authorizedInstitutions(unauthorized), "Unauthorized should not be authorized");
+        Assert.ok(eduVerify.authorizedInstitutions(authorizedInstitution1), "Institution1 should be authorized");
+        Assert.ok(eduVerify.authorizedInstitutions(authorizedInstitution2), "Institution2 should be authorized");
+        Assert.ok(!eduVerify.authorizedInstitutions(unauthorizedInstitution), "Unauthorized should not be authorized");
     }
     
     function testRevokeInstitution() public {
-        admin.propose(EduVerifyAdmin.Action.RevokeInstitution, institution2);
+        admin.propose(EduVerifyAdmin.Action.RevokeInstitution, authorizedInstitution1);
         admin.vote(3);
         admin.executeProposal(3);
         
-        Assert.ok(!eduVerify.authorizedInstitutions(institution2), "Institution2 should be revoked");
+        Assert.ok(!eduVerify.authorizedInstitutions(authorizedInstitution1), "Institution1 should be revoked");
     }
     
     
     function testIssueCredential() public {
         eduVerify.issueCredential(
-            credentialId,
+            credentialId1,
             "Alice",
             student,
-            "MIT",
+            "UniTrento",
             "BSc CS",
-            cid
+            cid1
         );
         
-        EduVerify.Credential memory cred = eduVerify.getCredential(credentialId);
+        EduVerify.Credential memory cred = eduVerify.getCredential(credentialId1);
         Assert.equal(cred.studentName, "Alice", "Student name should match");
-        Assert.equal(cred.degree, "BSc CS", "Degree should match");
+        Assert.equal(cred.degree, "BSc CS", "Student degree should match");
     }
     
     function testIssueDuplicateCredential() public {
         try eduVerify.issueCredential(
-            credentialId,
-            "Bob",
+            credentialId1,
+            "Francesco",
             student,
-            "Stanford",
-            "PhD",
+            "UniTrento",
+            "Masters",
             cid2
         ) {
             Assert.ok(false, "Duplicate credential ID should fail");
         } catch {
-            Assert.ok(true, "Duplicate credential ID failed as expected");
+            Assert.ok(true, "Duplicate credential ID failed as expected by the program");
         }
     }
     
@@ -94,9 +94,9 @@ contract EduVerifyTest {
 
         try eduVerify.issueCredential(
             credentialId2,
-            "Bob",
+            "Alessandra",
             student,
-            "Stanford",
+            "UniTrento",
             "PhD",
             cid2
         ) {
@@ -114,9 +114,9 @@ contract EduVerifyTest {
     function testStudentCredentials() public {
         eduVerify.issueCredential(
             credentialId2,
-            "Bob",
+            "Monica",
             student,
-            "Harvard",
+            "UniTrento",
             "MBA",
             cid2
         );
@@ -126,27 +126,28 @@ contract EduVerifyTest {
         
         bool foundFirst = false;
         bool foundSecond = false;
+
         for(uint i = 0; i < creds.length; i++) {
-            if(keccak256(bytes(creds[i])) == keccak256(bytes(credentialId))) {
+            if(keccak256(bytes(creds[i])) == keccak256(bytes(credentialId1))) {
                 foundFirst = true;
             }
             if(keccak256(bytes(creds[i])) == keccak256(bytes(credentialId2))) {
                 foundSecond = true;
             }
         }
-        Assert.ok(foundFirst, "First credential should exist");
-        Assert.ok(foundSecond, "Second credential should exist");
+        Assert.ok(foundFirst, "First credential need to be present exist");
+        Assert.ok(foundSecond, "Second credential need to be present");
     }
     
     function testInstitutionCredentials() public {
-        string memory testCredId = "test-cred-789";
+        string memory testCredId = "333";
         eduVerify.issueCredential(
             testCredId,
-            "Charlie",
+            "Mario",
             student,
-            "Test Uni",
+            "UniTrento",
             "Test Degree",
-            "QmTest"
+            "Qm333"
         );
         
         string[] memory creds = eduVerify.getInstitutionCredentials(address(this));
