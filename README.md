@@ -1,70 +1,188 @@
-# Getting Started with Create React App
+EduVerify - Academic Credential Verification System
+https://demo.gif
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+EduVerify is a decentralized platform for issuing, managing, and verifying academic credentials using blockchain technology. Built on Polygon with a governance model for institutions, this system provides a tamper-proof solution for academic credential verification.
 
-## Available Scripts
+Features
+🎓 Issue verifiable academic credentials as NFTs
 
-In the project directory, you can run:
+🔍 Verify credentials instantly using blockchain
 
-### `npm start`
+🗳️ Multi-signature governance for institutions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+🔒 Secure document storage on IPFS via Pinata
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+👨‍🎓 Student-friendly credential management
 
-### `npm test`
+🏫 Institution dashboard for credential issuance
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Technology Stack
+Blockchain
+Polygon PoS - For low-cost transactions
 
-### `npm run build`
+Solidity - Smart contracts development
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+OpenZeppelin - Secure contract templates
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Frontend
+React.js - User interface
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+React Bootstrap - UI components
 
-### `npm run eject`
+Ethers.js - Blockchain interaction
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Web3.js - Wallet connectivity
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Storage
+IPFS - Decentralized file storage
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Pinata - IPFS pinning service
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Installation Guide
+Prerequisites
+Node.js (v16+)
 
-## Learn More
+npm (v8+)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+MetaMask wallet (with Polygon Mumbai testnet configured)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Pinata account (for IPFS storage)
 
-### Code Splitting
+Frontend Setup
+Clone the repository:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+bash
+git clone https://github.com/your-username/EduVerify.git
+cd EduVerify/frontend
+Install dependencies:
 
-### Analyzing the Bundle Size
+bash
+npm install
+Create a .env file in the frontend directory:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+env
+REACT_APP_EDU_VERIFY_ADDRESS=0xYourEduVerifyContractAddress
+REACT_APP_GOVERNOR_ADDRESS=0xYourGovernorContractAddress
+REACT_APP_PINATA_API_KEY=your_pinata_api_key
+REACT_APP_PINATA_JWT=your_pinata_jwt
+Start the development server:
 
-### Making a Progressive Web App
+bash
+npm start
+Smart Contract Deployment (Optional)
+To deploy your own contracts:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Install Hardhat:
 
-### Advanced Configuration
+bash
+cd ../contracts
+npm install
+Configure hardhat.config.js with your wallet and Polygon RPC
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Deploy contracts:
 
-### Deployment
+bash
+npx hardhat run scripts/deploy.js --network polygonMumbai
+Configuration
+MetaMask Setup
+Install MetaMask extension
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Connect to Polygon Mumbai Testnet:
 
-### `npm run build` fails to minify
+Network Name: Mumbai Testnet
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+RPC URL: https://rpc-mumbai.maticvigil.com/
+
+Chain ID: 80001
+
+Currency Symbol: MATIC
+
+Get test MATIC from Polygon Faucet
+
+Pinata Setup
+Create a Pinata account
+
+Get API keys from Dashboard > API Keys
+
+Add keys to your .env file as REACT_APP_PINATA_API_KEY and REACT_APP_PINATA_JWT
+
+Initial Governance Setup
+The system comes pre-configured with 3 governor wallets. To access the governance dashboard, use one of these accounts:
+
+0xGovernorAddress1
+
+0xGovernorAddress2
+
+0xGovernorAddress3
+
+Running the Application
+Start the frontend:
+
+bash
+npm start
+Open your browser to: http://localhost:3000
+
+Connect your MetaMask wallet
+
+Depending on your wallet address, you'll see:
+
+Governor Dashboard - If you're one of the initial governors
+
+Institution View - If your address is authorized as an institution
+
+Student/Verifier View - For all other users
+
+Project Structure
+text
+EduVerify/
+├── contracts/                  # Smart contracts
+│   ├── EduVerify.sol           # Main credential contract
+│   ├── EduVerifyAdmin.sol      # Governance contract
+│   ├── scripts/                # Deployment scripts
+│   └── test/                   # Smart contract tests
+│
+├── frontend/                   # React application
+│   ├── public/
+│   ├── src/
+│   │   ├── components/         # React components
+│   │   ├── contracts/          # Contract ABIs
+│   │   ├── utils/              # Utility functions
+│   │   ├── App.js              # Main application
+│   │   └── index.js            # Entry point
+│   ├── .env                    # Environment variables
+│   └── package.json            # Frontend dependencies
+│
+├── .gitignore
+└── README.md                   # This file
+Testing
+Smart Contract Tests
+bash
+cd contracts
+npx hardhat test
+Frontend Testing
+bash
+cd frontend
+npm test
+Team
+[Your Name]
+
+[Team Member 2]
+
+[Team Member 3]
+
+Course: Blockchain Technologies
+Professor: [Professor's Name]
+University: [Your University]
+Academic Year: 2023-2024
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+Acknowledgments
+Polygon team for the excellent documentation
+
+OpenZeppelin for secure contract templates
+
+Pinata for IPFS pinning services
+
+Our professor for guidance and support
