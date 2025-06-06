@@ -30,12 +30,13 @@ const GovernorDashboard = ({ governorContract, account }) => {
         
         // Load proposals
         const count = await governorContract.proposalCount();
+        console.log('Total proposals:', count.toNumber());
         const props = [];
         
         for (let i = 0; i < count.toNumber(); i++) {
           const details = await governorContract.getProposalDetails(i);
           const hasVoted = await governorContract.hasVoted(i, account);
-          const requiredThreshold = threshold
+          const requiredThreshold = Math.floor(details[3].toNumber() / 2) + 1;
           
           props.push({
             id: i,

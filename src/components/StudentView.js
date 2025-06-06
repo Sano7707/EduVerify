@@ -9,40 +9,23 @@ const StudentView = ({ contract, account }) => {
   const [error, setError] = useState('');
   const [previewUrl, setPreviewUrl] = useState(null);
   const [previewFileName, setPreviewFileName] = useState('');
-
   const fetchCredentials = async () => {
-    setLoading(true);
     try {
-      const credentialIds = await contract.getStudentCredentials(account);
+      const creds = await contract.getStudentCredentialsFull(account);
       
-      const creds = await Promise.all(
-        credentialIds.map(async (id) => {
-          // Use getCredential instead of verifyCredential
-          const credential = await contract.getCredential(id);
-          return {
-            id,
-            studentName: credential.studentName,
-            institution: credential.institution,
-            degree: credential.degree,
-            issueDate: new Date(Number(credential.issueDate) * 1000).toLocaleDateString(),
-            cid: credential.cid,
-            issuer: credential.issuer
-          };
-        })
-      );
+      const formattedCreds = creds.map(cred => ({
+        ...cred,
+        issueDate: new Date(cred.issueDate * 1000).toLocaleDateString(),
+        id: `${cred.issuer}-${cred.cid}`
+      }));
       
-      setCredentials(creds);
+      setCredentials(formattedCreds);
     } catch (err) {
       console.error("Error fetching credentials:", err);
-      setError('Failed to load credentials');
+      setError('Failed to load credentials. Make sure you have credentials issued.');
     } finally {
       setLoading(false);
     }
-  };
-
-  const openDocument = (cid, fileName) => {
-    setPreviewFileName(fileName);
-    setPreviewUrl(getFileDownloadLink(cid));
   };
 
   useEffect(() => {
@@ -51,6 +34,11 @@ const StudentView = ({ contract, account }) => {
     }
   }, [contract, account]);
 
+    const openDocument = (cid, fileName) => {
+    setPreviewFileName(fileName);
+    setPreviewUrl(getFileDownloadLink(cid));
+  };
+
   return (
     <>
       <Tabs defaultActiveKey="myCredentials" className="mb-3">
@@ -58,7 +46,9 @@ const StudentView = ({ contract, account }) => {
           <Card className="mb-4 shadow-sm">
             <Card.Body>
               <Card.Subtitle className="mb-2 text-muted">
-                {account} is not authorized to issue credentials. If you are a student, you can see your credentials and if you are an institution you can verify credentials.
+                {account} is not authorized to issue credentials.<br />
+                If you are a student, you can see your credentials below.<br />
+                You can verify any credential in the second tab.
               </Card.Subtitle>
               <Card.Title>My Academic Credentials</Card.Title>
               

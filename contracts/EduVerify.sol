@@ -12,13 +12,21 @@ contract EduVerify {
         address studentAddress;
     }
 
+    struct CredentialReference {
+    address issuer;
+    string credentialId;
+}
+
+
+
     address public adminContract;
     mapping(address => bool) public authorizedInstitutions;
     mapping(address => mapping(string => Credential)) public credentials;
-    mapping(address => string[]) public studentCredentials;
     mapping(address => string[]) public institutionCredentials;
     mapping(string => address) public cidToIssuer;          
     mapping(string => string) public cidToCredentialId;   
+    mapping(address => CredentialReference[]) public studentCredentials;
+
 
     event CredentialIssued(string indexed credentialId, address indexed issuer, address indexed student);
     event InstitutionAuthorized(address indexed institution);
@@ -65,8 +73,11 @@ contract EduVerify {
             studentAddress: studentAddress
         });
         
-        studentCredentials[studentAddress].push(credentialId);
-        institutionCredentials[msg.sender].push(credentialId);
+        studentCredentials[studentAddress].push(CredentialReference({
+         issuer: msg.sender,
+        credentialId: credentialId
+    }));
+            institutionCredentials[msg.sender].push(credentialId);
         cidToCredentialId[cid] = credentialId;
         cidToIssuer[cid] = msg.sender;
         
@@ -84,9 +95,15 @@ contract EduVerify {
         return credentials[issuer][credentialId];
     }
 
-    function getStudentCredentials(address student)  public view returns (string[] memory)    {
-        return studentCredentials[student];
+   function getStudentCredentialsFull(address student)  public   view  returns (Credential[] memory) {
+    CredentialReference[] memory refs = studentCredentials[student];
+    Credential[] memory creds = new Credential[](refs.length);
+    
+    for (uint i = 0; i < refs.length; i++) {
+        creds[i] = credentials[refs[i].issuer][refs[i].credentialId];
     }
+    return creds;
+}
 
     function getInstitutionCredentials(address institution)  public view returns (string[] memory)    {
         return institutionCredentials[institution];

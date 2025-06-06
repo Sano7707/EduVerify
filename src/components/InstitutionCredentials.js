@@ -17,7 +17,7 @@ const InstitutionCredentials = ({ contract, account }) => {
         const creds = await Promise.all(
           credentialIds.map(async (id) => {
             // Get full credential details from contract
-            const credential = await contract.getCredential(id);
+            const credential = await contract.getCredential(account,id);
             
             return {
               id,
