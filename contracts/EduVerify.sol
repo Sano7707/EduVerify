@@ -14,12 +14,13 @@ contract EduVerify {
 
     address public adminContract;
     mapping(address => bool) public authorizedInstitutions;
-    mapping(string => Credential) public credentials;
+    mapping(address => mapping(string => Credential)) public credentials;
     mapping(address => string[]) public studentCredentials;
     mapping(address => string[]) public institutionCredentials;
-    mapping(string => string) public cidToCredentialId;
+    mapping(string => address) public cidToIssuer;          
+    mapping(string => string) public cidToCredentialId;   
 
-    event CredentialIssued(string indexed credentialId, address indexed student);
+    event CredentialIssued(string indexed credentialId, address indexed issuer, address indexed student);
     event InstitutionAuthorized(address indexed institution);
     event InstitutionRevoked(address indexed institution);
 
@@ -50,10 +51,11 @@ contract EduVerify {
         string memory degree,
         string memory cid
     ) external {
-        require(authorizedInstitutions[msg.sender], "Not authorized");
-        require(bytes(credentials[credentialId].degree).length == 0, "Credential exists");
+        require(authorizedInstitutions[msg.sender], "Institution not authorized");
         
-        credentials[credentialId] = Credential({
+        require(bytes(credentials[msg.sender][credentialId].degree).length == 0,  "Credential ID already used by your institution" );
+        
+        credentials[msg.sender][credentialId] = Credential({
             studentName: studentName,
             institution: institution,
             degree: degree,
@@ -66,25 +68,27 @@ contract EduVerify {
         studentCredentials[studentAddress].push(credentialId);
         institutionCredentials[msg.sender].push(credentialId);
         cidToCredentialId[cid] = credentialId;
+        cidToIssuer[cid] = msg.sender;
         
-        emit CredentialIssued(credentialId, studentAddress);
+        emit CredentialIssued(credentialId, msg.sender, studentAddress);
     }
 
-    function getCredential(string memory credentialId) public view returns (Credential memory) {
-        return credentials[credentialId];
+    function getCredential(address issuer, string memory credentialId) public view returns (Credential memory)  {
+        return credentials[issuer][credentialId];
     }
 
-    function getCredentialByCID(string memory cid) public view returns (Credential memory) {
+    function getCredentialByCID(string memory cid) public view returns (Credential memory)    {
+        address issuer = cidToIssuer[cid];
+        require(issuer != address(0), "Credential not found");
         string memory credentialId = cidToCredentialId[cid];
-        require(bytes(credentialId).length > 0, "Credential not found");
-        return credentials[credentialId];
+        return credentials[issuer][credentialId];
     }
 
-    function getStudentCredentials(address student) public view returns (string[] memory) {
+    function getStudentCredentials(address student)  public view returns (string[] memory)    {
         return studentCredentials[student];
     }
 
-    function getInstitutionCredentials(address institution) public view returns (string[] memory) {
+    function getInstitutionCredentials(address institution)  public view returns (string[] memory)    {
         return institutionCredentials[institution];
     }
 }

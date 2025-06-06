@@ -23,6 +23,12 @@
 			{
 				"indexed": true,
 				"internalType": "address",
+				"name": "issuer",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
 				"name": "student",
 				"type": "address"
 			}
@@ -128,6 +134,30 @@
 				"type": "string"
 			}
 		],
+		"name": "cidToIssuer",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
 		"name": "credentials",
 		"outputs": [
 			{
@@ -171,6 +201,11 @@
 	},
 	{
 		"inputs": [
+			{
+				"internalType": "address",
+				"name": "issuer",
+				"type": "address"
+			},
 			{
 				"internalType": "string",
 				"name": "credentialId",
