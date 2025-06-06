@@ -170,7 +170,7 @@ function App() {
       <Container className="py-4">
         {!account ? (
           <div className="text-center mt-5 pt-5">
-            <h1 className="mb-4">EduVerify Platform</h1>
+            <h1 className="mb-4">EduVerify </h1>
             <p className="lead mb-5">Blockchain-based academic credential verification</p>
             
             <div className="card p-4 mb-4 mx-auto shadow" style={{ maxWidth: '500px' }}>
