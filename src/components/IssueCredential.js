@@ -30,7 +30,6 @@ const IssueCredential = ({ contract, account }) => {
     setSuccess(false);
 
     try {
-      // Validate all fields before proceeding
       if (!formData.credentialId || 
           !formData.studentName || 
           !formData.studentAddress || 
@@ -40,12 +39,10 @@ const IssueCredential = ({ contract, account }) => {
         throw new Error('Please fill all fields correctly');
       }
 
-      // Validate student address format
       if (!/^0x[a-fA-F0-9]{40}$/.test(formData.studentAddress)) {
         throw new Error('Invalid student wallet address');
       }
 
-      // Upload to Pinata and get CID
       const uploadResult = await uploadToPinata(formData.document);
       if (!uploadResult || !uploadResult.cid) {
         console.log(uploadResult)
@@ -54,7 +51,6 @@ const IssueCredential = ({ contract, account }) => {
 
       const cid = uploadResult.cid;
       
-      // Prepare all parameters
       const params = [
         formData.credentialId,
         formData.studentName,
@@ -64,16 +60,12 @@ const IssueCredential = ({ contract, account }) => {
         cid
       ];
       
-      // Log parameters for debugging
-      console.log('Issuing credential with params:', params);
       
-      // Issue credential on blockchain
       const tx = await contract.issueCredential(...params);
       
       await tx.wait();
       setSuccess('Credential issued successfully!');
       
-      // Reset form
       setFormData({
         credentialId: '',
         studentName: '',

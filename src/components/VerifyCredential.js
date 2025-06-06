@@ -59,7 +59,6 @@ const VerifyCredential = ({ contract }) => {
     }
   };
 
-  // Reset form function
   const resetForm = () => {
     setCid('');
     setStudentAddress('');
@@ -135,7 +134,6 @@ const VerifyCredential = ({ contract }) => {
               ) : 'Verify Credential'}
             </Button>
             
-            {/* Clear button to reset entire form */}
             <Button 
               variant="outline-secondary" 
               onClick={resetForm}

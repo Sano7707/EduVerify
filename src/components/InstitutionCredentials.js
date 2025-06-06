@@ -11,12 +11,10 @@ const InstitutionCredentials = ({ contract, account }) => {
   useEffect(() => {
     const loadCredentials = async () => {
       try {
-        // Get all credential IDs issued by this institution
         const credentialIds = await contract.getInstitutionCredentials(account);
         
         const creds = await Promise.all(
           credentialIds.map(async (id) => {
-            // Get full credential details from contract
             const credential = await contract.getCredential(account,id);
             
             return {

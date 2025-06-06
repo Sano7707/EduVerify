@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 
-// Function to get Pinata API key (if using API key auth)
 const getPinataAPIKey = () => {
   return process.env.REACT_APP_PINATA_API_KEY;
 };
@@ -22,7 +21,6 @@ export const uploadToPinata = async (file, metadata = {}) => {
     formData.append('network', 'public');
     formData.append('name', file.name);
     
-    // Add metadata with credential information
     formData.append(
       'keyvalues',
       JSON.stringify({
@@ -50,7 +48,6 @@ export const uploadToPinata = async (file, metadata = {}) => {
       }
     );
 
-    // Return the CID for the file
       return {
       cid: response.data.data.cid,
       url: `https://gateway.pinata.cloud/ipfs/${response.data.cid}`

@@ -16,11 +16,9 @@ const GovernorDashboard = ({ governorContract, account }) => {
       setLoading(true);
       setError('');
       try {
-        // Load governance settings
-        const thresh = await governorContract.calculateThreshold(); // Example threshold calculation
+        const thresh = await governorContract.calculateThreshold(); 
         setThreshold(thresh.toNumber());
         
-        // Load governors
         const govCount = await governorContract.governorCount();
         const govs = [];
         for (let i = 0; i < govCount.toNumber(); i++) {
@@ -28,7 +26,6 @@ const GovernorDashboard = ({ governorContract, account }) => {
         }
         setGovernors(govs);
         
-        // Load proposals
         const count = await governorContract.proposalCount();
         console.log('Total proposals:', count.toNumber());
         const props = [];

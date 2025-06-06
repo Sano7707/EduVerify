@@ -6,7 +6,6 @@ let signer = null;
 export const initWeb3 = async () => {
   if (window.ethereum) {
     try {
-      // Check if we're already connected
       const accounts = await window.ethereum.request({ method: 'eth_accounts' });
       if (accounts.length > 0) {
         provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -14,7 +13,6 @@ export const initWeb3 = async () => {
         return true;
       }
       
-      // Request connection if not connected
       await window.ethereum.request({ method: 'eth_requestAccounts' });
       provider = new ethers.providers.Web3Provider(window.ethereum);
       signer = provider.getSigner();
@@ -39,7 +37,6 @@ export const getCurrentAccount = async () => {
     }
   }
   
-  // Fallback to eth_accounts
   try {
     const accounts = await window.ethereum.request({ method: 'eth_accounts' });
     return accounts[0] || null;
