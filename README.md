@@ -4,7 +4,7 @@ EduVerify is a decentralized platform for issuing, managing, and verifying acade
 
 ---
 
-## Table of Contents
+## Table of Contents 
 
 1. [Features](#features)  
 2. [Technology Stack](#technology-stack)  
