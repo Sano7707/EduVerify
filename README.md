@@ -130,4 +130,4 @@ University: UniTrento
 Academic Year: 2024–2025
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. 
