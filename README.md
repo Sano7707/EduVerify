@@ -1,70 +1,133 @@
-# Getting Started with Create React App
+# EduVerify - Academic Credential Verification System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+EduVerify is a decentralized platform for issuing, managing, and verifying academic credentials using blockchain technology. Built on Polygon with a governance model for institutions, this system provides a tamper-proof solution for academic credential verification.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Table of Contents 
 
-### `npm start`
+1. [Features](#features)  
+2. [Technology Stack](#technology-stack)  
+3. [Installation Guide](#installation-guide)  
+4. [Configuration](#configuration)  
+5. [Initial Governance Setup](#initial-governance-setup)  
+6. [Running the Application](#running-the-application)  
+7. [Team](#team)  
+8. [License](#license)  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- 🎓 Issue verifiable academic credentials   
+- 🔍 Verify credentials instantly using blockchain  
+- 🗳️ Multi-signature governance   
+- 🔒 Secure document storage on IPFS via Pinata  
+- 👨‍🎓 Student-friendly credential management  
+- 🏫 Institution dashboard for credential issuance  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## Technology-Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Blockchain
+- **Polygon PoS** – Low-cost, scalable transactions  
+- **Solidity** – Smart contract development  
+- **OpenZeppelin** – Battle-tested contract libraries  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Frontend
+- **React.js** – Component-based UI  
+- **React Bootstrap** – Responsive UI components  
+- **Ethers.js** – Blockchain interactions  
+- **Web3.js** – Wallet connectivity  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Storage
+- **IPFS** – Decentralized file storage  
+- **Pinata** – IPFS pinning service  
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Installation-Guide
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerequisites
+- Node.js (v16+)  
+- npm (v8+)  
+- MetaMask wallet (configured for Polygon Mumbai testnet)  
+- Pinata account (for IPFS storage)  
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Frontend Setup
+1. **Clone the repo**  
+    ```bash
+    git clone https://github.com/your-username/EduVerify.git
+    cd EduVerify/frontend
+    ```
+2. **Install dependencies**  
+    ```bash
+    npm install
+    ```
+3. **Configure environment**  
+    Create a `.env` file in `frontend/`:
+    ```env
+    REACT_APP_EDU_VERIFY_ADDRESS=0x38C56078D2e5F107136546233258eC92FbdCC2f9
+    REACT_APP_GOVERNOR_ADDRESS=0xb77836B0674E9724DaCc42A7B4db0A0beF61fF50
+    REACT_APP_PINATA_API_KEY=your_pinata_api_key
+    REACT_APP_PINATA_JWT=your_pinata_jwt
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Configuration
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### MetaMask Setup
+1. Install [MetaMask](https://metamask.io/) extension.  
+2. Add Polygon Apoy Testnet:  
+   - **Network Name:** Apoy Testnet  
+   - **RPC URL:** [https://rpc-mumbai.maticvigil.com/  ](https://rpc-amoy.polygon.technology/)
+   - **Chain ID:** 80002
+   - **Currency Symbol:** POL  
+3. Get test POL from the [[Polygon Faucet](https://faucet.polygon.technology/). ](https://faucet.stakepool.dev.br/amoy) 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Pinata Setup
+1. Create a [Pinata account](https://www.pinata.cloud/).  
+2. Generate API keys under Dashboard → API Keys.  
+3. Add them to `.env` as shown above.  
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Initial-Governance-Setup
 
-### Analyzing the Bundle Size
+Pre-configured governor wallets (multi-sig):
+- `0xGovernorAddress1`  
+- `0xGovernorAddress2`  
+- `0xGovernorAddress3`  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Use any of these addresses to access the Governor Dashboard.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Running-the-Application
 
-### Advanced Configuration
+1. **Start the frontend**  
+    ```bash
+    cd frontend
+    npm start
+    ```
+2. **Open** [http://localhost:3000](http://localhost:3000).  
+3. **Connect** MetaMask.  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Depending on your address, you will see:  
+- **Governor Dashboard** (if wallet is a governor)  
+- **Institution View** (if authorized institution)  
+- **Student/Verifier View** (otherwise)  
 
-### Deployment
+---
+## Team
+Sanasar Hambardzumyan – s.hambardzumyan@studenti.unitn.it
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Gabriele Volani – gabriele.volana@studenti.unitn.it
 
-### `npm run build` fails to minify
+Course: Blockchain Technologies
+University: UniTrento
+Academic Year: 2024–2025
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## License
+This project is licensed under the MIT License. 
