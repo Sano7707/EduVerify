@@ -1,0 +1,516 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_adminContract",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "string",
+						"name": "credentialId",
+						"type": "string"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "issuer",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "student",
+						"type": "address"
+					}
+				],
+				"name": "CredentialIssued",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "institution",
+						"type": "address"
+					}
+				],
+				"name": "InstitutionAuthorized",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "institution",
+						"type": "address"
+					}
+				],
+				"name": "InstitutionRevoked",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "adminContract",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "institution",
+						"type": "address"
+					}
+				],
+				"name": "authorizeInstitution",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "authorizedInstitutions",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "cidToCredentialId",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "cidToIssuer",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"name": "credentials",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "institution",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "degree",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "issueDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "cid",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "issuer",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "studentAddress",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "issuer",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "credentialId",
+						"type": "string"
+					}
+				],
+				"name": "getCredential",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "institution",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "degree",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "issueDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "cid",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "issuer",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "studentAddress",
+								"type": "address"
+							}
+						],
+						"internalType": "struct EduVerify.Credential",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "cid",
+						"type": "string"
+					}
+				],
+				"name": "getCredentialByCID",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "institution",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "degree",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "issueDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "cid",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "issuer",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "studentAddress",
+								"type": "address"
+							}
+						],
+						"internalType": "struct EduVerify.Credential",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "institution",
+						"type": "address"
+					}
+				],
+				"name": "getInstitutionCredentials",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "student",
+						"type": "address"
+					}
+				],
+				"name": "getStudentCredentialsFull",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "string",
+								"name": "institution",
+								"type": "string"
+							},
+							{
+								"internalType": "string",
+								"name": "degree",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "issueDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "cid",
+								"type": "string"
+							},
+							{
+								"internalType": "address",
+								"name": "issuer",
+								"type": "address"
+							},
+							{
+								"internalType": "address",
+								"name": "studentAddress",
+								"type": "address"
+							}
+						],
+						"internalType": "struct EduVerify.Credential[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "institutionCredentials",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "credentialId",
+						"type": "string"
+					},
+					{
+						"internalType": "address",
+						"name": "studentAddress",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "institution",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "degree",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "cid",
+						"type": "string"
+					}
+				],
+				"name": "issueCredential",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "institution",
+						"type": "address"
+					}
+				],
+				"name": "revokeInstitution",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "studentCredentials",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "issuer",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "credentialId",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"new-contracts/EduVerify.sol": "EduVerify"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"new-contracts/EduVerify.sol": {
+			"keccak256": "0xabff39f53ff0e16f20b3dd39973015415e35970de595d8fc58ac2fb442508efd",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9f6f27993d72631fca881cdacbdaff9ba34cb1f7d4e99375ba593f6aca4fe8ef",
+				"dweb:/ipfs/QmbZ3qUcF6pm8iT5ceVJxNH5BfMcyiPwjPTDasDGBN6RRv"
+			]
+		}
+	},
+	"version": 1
+}

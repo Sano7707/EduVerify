@@ -24,7 +24,8 @@ contract EduVerifyAdmin {
         mapping(address => bool) hasVoted;
     }
     
-    address[] public governors;
+    mapping(address => bool) public isGovernor;
+    uint public totalGovernors;
     address public eduVerify; //address of other SC
     
     Proposal[] public proposals;
@@ -36,24 +37,27 @@ contract EduVerifyAdmin {
     event GovernorRemoved(address indexed governor);
     
     modifier onlyGovernor() {
-        require(isGovernor(msg.sender), "Not a governor");
+        require(isGovernor[msg.sender], "Not a governor");
         _;
     }
     
     constructor(address[] memory _initialGovernors, address _eduVerify) {
-        governors = _initialGovernors;
+        totalGovernors = _initialGovernors.length;
         eduVerify = _eduVerify;
-    }
-    
-    function isGovernor(address account) public view returns(bool) {
-        for(uint i = 0; i < governors.length; i++) {
-            if(governors[i] == account) return true;
+
+        uint length = _initialGovernors.length;
+        for (uint i = 0; i < length;) {
+            address governor = _initialGovernors[i];
+            require(governor != address(0), "Invalid governor");
+            require(!isGovernor[governor], "Duplicate governor");
+            isGovernor[governor] = true;
+
+            unchecked{ ++i; }
         }
-        return false;
     }
     
     function calculateThreshold() public view returns(uint) {
-        return (governors.length / 2) + 1;
+        return (totalGovernors / 2) + 1;
     }
     
     function propose(Action action, address target) external onlyGovernor returns(uint) {
@@ -63,7 +67,7 @@ contract EduVerifyAdmin {
         newProposal.action = action;
         newProposal.target = target;
         newProposal.yesVotes = 0;
-        newProposal.snapshotGovernorCount = governors.length;
+        newProposal.snapshotGovernorCount = totalGovernors;
         newProposal.executed = false;
         
         emit ProposalCreated(proposalId, action, target);
@@ -96,21 +100,17 @@ contract EduVerifyAdmin {
             require(success, "Revocation failed");
         }
         else if(proposal.action == Action.AddGovernor) {
-            require(!isGovernor(proposal.target), "Target is already a governor");
-            governors.push(proposal.target);
+            require(!isGovernor[proposal.target], "Target is already a governor");
+            isGovernor[proposal.target] = true;
+            totalGovernors++;
             emit GovernorAdded(proposal.target);
         }
         else if(proposal.action == Action.RevokeGovernor) {
-            require(isGovernor(proposal.target), "Not a governor");
-            require(governorCount() >= 2, "Two governors cannot remove each other");
-            for(uint i = 0; i < governors.length; i++) {
-                if(governors[i] == proposal.target) {
-                    governors[i] = governors[governors.length-1];
-                    governors.pop();
-                    emit GovernorRemoved(proposal.target);
-                    break;
-                }
-            }
+            require(isGovernor[proposal.target], "Not a governor");
+            require(totalGovernors >= 2, "Two governors cannot remove each other");
+            isGovernor[proposal.target] = false;
+            totalGovernors--;
+            emit GovernorRemoved(proposal.target);
         }
         
         proposal.executed = true;
@@ -136,7 +136,7 @@ contract EduVerifyAdmin {
     }
     
     function governorCount() public view returns(uint) {
-        return governors.length;
+        return totalGovernors;
     }
 
     function setEduVerifyAddress(address _eduVerify) external onlyGovernor {

@@ -50,7 +50,7 @@ contract EduVerifyTest {
     function testRevokeInstitution() public {
         _createAndExecuteProposal(EduVerifyAdmin.Action.RevokeInstitution, authorizedInstitution1);
         Assert.ok(!eduVerify.authorizedInstitutions(authorizedInstitution1), "Institution1 should be revoked");
-                _createAndExecuteProposal(EduVerifyAdmin.Action.AddInstitution, authorizedInstitution1);
+        _createAndExecuteProposal(EduVerifyAdmin.Action.AddInstitution, authorizedInstitution1);
     }
     
     function testIssueCredential() public {
