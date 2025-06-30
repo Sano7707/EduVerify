@@ -2,8 +2,8 @@
 pragma solidity ^0.8.0;
 
 import "remix_tests.sol";
-import "../contracts/EduVerify.sol";
-import "../contracts/EduVerifyAdmin.sol";
+import "../new-contracts/EduVerify.sol";
+import "../new-contracts/EduVerifyAdmin.sol";
 
 contract EduVerifyTest {
     EduVerify eduVerify;
@@ -24,7 +24,7 @@ contract EduVerifyTest {
     function beforeAll() public {
         address[] memory initialGovernors = new address[](1);
         initialGovernors[0] = address(this);
-        admin = new EduVerifyAdmin(initialGovernors, address(0));
+        admin = new EduVerifyAdmin(initialGovernors);
         
         eduVerify = new EduVerify(address(admin));
         admin.setEduVerifyAddress(address(eduVerify));
@@ -56,7 +56,6 @@ contract EduVerifyTest {
     function testIssueCredential() public {
         eduVerify.issueCredential(
             credentialId1,
-            "Alice",
             student,
             "UniTrento",
             "BSc CS",
@@ -64,7 +63,7 @@ contract EduVerifyTest {
         );
         
         EduVerify.Credential memory cred = eduVerify.getCredential(address(this), credentialId1);
-        Assert.equal(cred.studentName, "Alice", "Student name should match");
+        Assert.equal(cred.institution, "UniTrento", "Institution should match");
         Assert.equal(cred.degree, "BSc CS", "Degree should match");
         Assert.equal(cred.cid, cid1, "CID should match");
     }
@@ -72,7 +71,6 @@ contract EduVerifyTest {
     function testIssueDuplicateCredential() public {
         try eduVerify.issueCredential(
             credentialId1, 
-            "Francesco",
             student,
             "UniTrento",
             "Masters",
@@ -89,7 +87,6 @@ contract EduVerifyTest {
         
         try eduVerify.issueCredential(
             credentialId2,
-            "Alessandra",
             student,
             "UniTrento",
             "PhD",
@@ -107,7 +104,6 @@ contract EduVerifyTest {
         EduVerify.Credential[] memory creds = eduVerify.getStudentCredentialsFull(student);
         
         Assert.equal(creds.length, 1, "Student should have 1 credential");
-        Assert.equal(creds[0].studentName, "Alice", "Student name should match");
         Assert.equal(creds[0].degree, "BSc CS", "Degree should match");
     }
     
@@ -117,7 +113,6 @@ contract EduVerifyTest {
         
         eduVerify.issueCredential(
             testCredId,
-            "Mario",
             student,
             "UniTrento",
             "Test Degree",
@@ -125,7 +120,6 @@ contract EduVerifyTest {
         );
         
         EduVerify.Credential memory cred = eduVerify.getCredentialByCID(testCid);
-        Assert.equal(cred.studentName, "Mario", "Student name should match");
         Assert.equal(cred.degree, "Test Degree", "Degree should match");
     }
 }

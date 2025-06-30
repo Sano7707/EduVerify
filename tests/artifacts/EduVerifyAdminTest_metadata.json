@@ -132,12 +132,12 @@
 				"dweb:/ipfs/QmQdWQvB6JCP9ZMbzi8EvQ1PTETqkcTWrbcVurS7DKpa5n"
 			]
 		},
-		"contracts/EduVerifyAdmin.sol": {
-			"keccak256": "0x13767b0877a19f2602d7c4a748db6e39183bbdaedf85ee82037f8855e70fc3a4",
+		"new-contracts/EduVerifyAdmin.sol": {
+			"keccak256": "0x6504b552153c1500f00ebcde6ec3e1266f15c0e88b27b0fae536eb13ee29cb70",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9967ec973dacc511a46f9581f0e81e6cb02745414c59ce8dfadbcd3901bbb2e8",
-				"dweb:/ipfs/QmctKJGbLcmGDHV63kgSVr7tJztBURgEGzH52tBashuGSy"
+				"bzz-raw://4a8c5e94d54eee8659cab0f9367fdffcf3b352c5f4a0895b3d6df009447a0551",
+				"dweb:/ipfs/QmaARp4THw7hhDPbxg88eAQJEoT6qbnpafAKaJNKpwJrK8"
 			]
 		},
 		"remix_tests.sol": {
@@ -149,19 +149,19 @@
 			]
 		},
 		"tests/EduVerifyAdmin_test.sol": {
-			"keccak256": "0x88ed954d95c3485ae11d51ec0bf3fe529c1cb4d4627c1dae4737d7c835ed78e5",
+			"keccak256": "0xe62207b4142da1c61751589a57dcd1b6fe4cc56790f88b5998fe974bf4fd87eb",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://871317c874b0299ad471b1ab51163b347b7d3a6a465bc566e3d2943aaaade7e6",
-				"dweb:/ipfs/QmeLKUxXPrpVtq7EvdP3fSZQtjCJG2LVPcYEpP3bjHe9iN"
+				"bzz-raw://3a7cf7c09f7bf3bf4d46c7dd59307f891b729361a3c4bb8ed6705ee3c3fa3462",
+				"dweb:/ipfs/QmQSWh3ENuVVrsLSzGkwsxx6rYErZbrYvC8tnvfpteYeqF"
 			]
 		},
 		"tests/Governor.sol": {
-			"keccak256": "0x40c52b3e040362e91fb6b020ca4d17ecb9bf42583fe59cb8c12a390e521be038",
+			"keccak256": "0x3802420c5cbcbfcb57ea2233ea026b0fc08afd106f92d59f6bc00cb67fc60c58",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://af4302302c0117db7bf400abb2980db5a10a2c23d8188fce653c240b4edef404",
-				"dweb:/ipfs/Qme7uxr1EVHBCJTQiaVu6M6mewkT5wjFmw2B6WCsnoE7hW"
+				"bzz-raw://689425a5a7b066eff1506db125acdd987d21c86c3a1442138e8764195d828932",
+				"dweb:/ipfs/QmSd2sKVCVWtRncTGiwy8pbrJcPLA8StnhLPG6DeGi5qgj"
 			]
 		}
 	},

@@ -1,0 +1,139 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "contract EduVerifyAdmin",
+						"name": "admin",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "proposalId",
+						"type": "uint256"
+					}
+				],
+				"name": "executeProposal",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract EduVerifyAdmin",
+						"name": "admin",
+						"type": "address"
+					},
+					{
+						"internalType": "enum EduVerifyAdmin.Action",
+						"name": "action",
+						"type": "uint8"
+					},
+					{
+						"internalType": "address",
+						"name": "target",
+						"type": "address"
+					}
+				],
+				"name": "proposeTest",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract EduVerifyAdmin",
+						"name": "admin",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "proposalId",
+						"type": "uint256"
+					}
+				],
+				"name": "voteTest",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tests/Governor.sol": "Governor"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/utils/cryptography/ECDSA.sol": {
+			"keccak256": "0x69f54c02b7d81d505910ec198c11ed4c6a728418a868b906b4a0cf29946fda84",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8e25e4bdb7ae1f21d23bfee996e22736fc0ab44cfabedac82a757b1edc5623b9",
+				"dweb:/ipfs/QmQdWQvB6JCP9ZMbzi8EvQ1PTETqkcTWrbcVurS7DKpa5n"
+			]
+		},
+		"new-contracts/EduVerifyAdmin.sol": {
+			"keccak256": "0x6504b552153c1500f00ebcde6ec3e1266f15c0e88b27b0fae536eb13ee29cb70",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4a8c5e94d54eee8659cab0f9367fdffcf3b352c5f4a0895b3d6df009447a0551",
+				"dweb:/ipfs/QmaARp4THw7hhDPbxg88eAQJEoT6qbnpafAKaJNKpwJrK8"
+			]
+		},
+		"tests/Governor.sol": {
+			"keccak256": "0xd58ec8f33dbabd2c2125a69bd2f2122934b253cf6571337de194e34f6d9f1286",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://cb41c1533ecd27d3d8c46144e641e8c014712576644f1334db32a57c6f3ccff5",
+				"dweb:/ipfs/Qmete7qE6Noa66qJXWcAkdmGpkSxJU55hkpFXPfVVnJ5vn"
+			]
+		}
+	},
+	"version": 1
+}

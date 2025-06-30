@@ -31,9 +31,8 @@ contract EduVerifyAdminTest {
         initialGovernors.push(address(governor3));
 
         admin = new EduVerifyAdmin(initialGovernors);
-        admin.setEduVerifyAddress(eduVerifyAddr);
+        governor1.setEduVerify(admin, eduVerifyAddr);
     }
-
 
     function testInitialSetup() public {
         Assert.equal(admin.governorCount(), 3, "Initial governor count need to be 3");

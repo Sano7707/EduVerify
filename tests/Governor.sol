@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "../contracts/EduVerifyAdmin.sol";
+import "../new-contracts/EduVerifyAdmin.sol";
 
 contract Governor {
 
-    function proposeTest( EduVerifyAdmin admin,  EduVerifyAdmin.Action action, address target
+    function proposeTest(EduVerifyAdmin admin,  EduVerifyAdmin.Action action, address target
     ) public returns (uint256) {
         return admin.propose(action, target);
     }
@@ -19,4 +19,10 @@ contract Governor {
         (bool result, ) = address(admin).call(abi.encodeWithSignature("executeProposal(uint256)", proposalId));
         return result;
     }
+
+    function setEduVerify(EduVerifyAdmin admin, address _eduVerifyAddr) public returns (bool) {
+        (bool result, ) = address(admin).call(abi.encodeWithSignature("setEduVerifyAddress(address)", _eduVerifyAddr));
+        return result;
+    }
+
 }
