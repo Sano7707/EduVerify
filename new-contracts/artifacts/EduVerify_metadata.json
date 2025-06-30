@@ -504,11 +504,11 @@
 	},
 	"sources": {
 		"new-contracts/EduVerify.sol": {
-			"keccak256": "0xabff39f53ff0e16f20b3dd39973015415e35970de595d8fc58ac2fb442508efd",
+			"keccak256": "0x4af3a018cfaaa7a158e60d798ea46a967495926a619766033416808319e64cca",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9f6f27993d72631fca881cdacbdaff9ba34cb1f7d4e99375ba593f6aca4fe8ef",
-				"dweb:/ipfs/QmbZ3qUcF6pm8iT5ceVJxNH5BfMcyiPwjPTDasDGBN6RRv"
+				"bzz-raw://31875aff9ffd4c2ff08ddcc4fd33b38a8a298fd72cea89bc1c06aa328dd842ce",
+				"dweb:/ipfs/QmdKtZXMcYFHbN2UMQ1Czs9L1RsNdpB1DSjbXhJSE5CULi"
 			]
 		}
 	},

@@ -18,17 +18,25 @@ contract EduVerify {
     }
 
     address public immutable adminContract;
+
     mapping(address => bool) public authorizedInstitutions;
-    mapping(address => mapping(string => Credential)) public credentials; //student_address => (credentialId => credential)
-    mapping(address => string[]) public institutionCredentials; //instution_address => id of credentials issued by that institutions
-    mapping(string => address) public cidToIssuer;              //cid => address of who issued it 
-    mapping(string => string) public cidToCredentialId;         //cid => credential id
-    mapping(address => CredentialReference[]) public studentCredentials;   //student_address => credential_ref[]
+    
+    //student_address => (credentialId => credential)
+    mapping(address => mapping(string => Credential)) public credentials;
+    //instution_address => id of credentials issued by that institutions
+    mapping(address => string[]) public institutionCredentials;
+    //cid => address of who issued it
+    mapping(string => address) public cidToIssuer;
+    //cid => credential id
+    mapping(string => string) public cidToCredentialId;
+    //student_address => credential references associated
+    mapping(address => CredentialReference[]) public studentCredentials;
 
     event CredentialIssued(string indexed credentialId, address indexed issuer, address indexed student);
     event InstitutionAuthorized(address indexed institution);
     event InstitutionRevoked(address indexed institution);
 
+    //we set the EduVerifyAdmin contract when we deploy it
     constructor(address _adminContract) {
         adminContract = _adminContract;
     }
@@ -38,26 +46,27 @@ contract EduVerify {
         _;
     }
 
-    //Authorize an institution
+    //authorize an institution - can be only called by the contract EduVerifyAdmin
     function authorizeInstitution(address institution) external onlyAdmin {
         authorizedInstitutions[institution] = true;
         emit InstitutionAuthorized(institution);
     }
 
+    //revoke an institution - can be only called by the contract EduVerifyAdmin
     function revokeInstitution(address institution) external onlyAdmin {
         authorizedInstitutions[institution] = false;
         emit InstitutionRevoked(institution);
     }
 
     function issueCredential(
-        string memory credentialId,     //university has its own id of credentials
-        address studentAddress,
-        string memory institution,      //could we remove it?
-        string memory degree,           //Master_Degree <-> MASTER_DEGREE      
-        string memory cid               //cid
+        string memory credentialId,     //university has its own id of the credential
+        address studentAddress,         //address of student's wallet
+        string memory institution,      //university name
+        string memory degree,           //type of the degree      
+        string memory cid               //cid to identify the document on IPFS
     ) external {
-        require(authorizedInstitutions[msg.sender], "Institution not authorized");
         
+        require(authorizedInstitutions[msg.sender], "Institution not authorized");
         require(bytes(credentials[msg.sender][credentialId].degree).length == 0,  "Credential ID already used by your institution" );
         
         credentials[msg.sender][credentialId] = Credential({

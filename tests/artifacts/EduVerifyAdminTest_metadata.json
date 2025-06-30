@@ -1,0 +1,169 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "beforeAll",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testAddExistingGovernor",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testAddGovernor",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testGetInvalidProposal",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testInitialSetup",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testInsufficientVotesExecution",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testNonGovernorCannotpropose",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testProposalCreation",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testProposalExecution",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testRemoveGovernor",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testThresholdCalculation",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testVoteOnInvalidProposal",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testVoting",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tests/EduVerifyAdmin_test.sol": "EduVerifyAdminTest"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/utils/cryptography/ECDSA.sol": {
+			"keccak256": "0x69f54c02b7d81d505910ec198c11ed4c6a728418a868b906b4a0cf29946fda84",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8e25e4bdb7ae1f21d23bfee996e22736fc0ab44cfabedac82a757b1edc5623b9",
+				"dweb:/ipfs/QmQdWQvB6JCP9ZMbzi8EvQ1PTETqkcTWrbcVurS7DKpa5n"
+			]
+		},
+		"contracts/EduVerifyAdmin.sol": {
+			"keccak256": "0x13767b0877a19f2602d7c4a748db6e39183bbdaedf85ee82037f8855e70fc3a4",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9967ec973dacc511a46f9581f0e81e6cb02745414c59ce8dfadbcd3901bbb2e8",
+				"dweb:/ipfs/QmctKJGbLcmGDHV63kgSVr7tJztBURgEGzH52tBashuGSy"
+			]
+		},
+		"remix_tests.sol": {
+			"keccak256": "0xe2783cdc204cba8c72494119339f1d90f9022b15d6c718c668b7f097d8e29787",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://bb6a22e64c7f16bcaab63b1c1a1b269d5be8a6d37bdd9dec1718477ab916b18e",
+				"dweb:/ipfs/QmdkW1tT5iadBvaHMCoskhDGZKnfdg8o1D9CcoQYtdJet7"
+			]
+		},
+		"tests/EduVerifyAdmin_test.sol": {
+			"keccak256": "0x88ed954d95c3485ae11d51ec0bf3fe529c1cb4d4627c1dae4737d7c835ed78e5",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://871317c874b0299ad471b1ab51163b347b7d3a6a465bc566e3d2943aaaade7e6",
+				"dweb:/ipfs/QmeLKUxXPrpVtq7EvdP3fSZQtjCJG2LVPcYEpP3bjHe9iN"
+			]
+		},
+		"tests/Governor.sol": {
+			"keccak256": "0x40c52b3e040362e91fb6b020ca4d17ecb9bf42583fe59cb8c12a390e521be038",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://af4302302c0117db7bf400abb2980db5a10a2c23d8188fce653c240b4edef404",
+				"dweb:/ipfs/Qme7uxr1EVHBCJTQiaVu6M6mewkT5wjFmw2B6WCsnoE7hW"
+			]
+		}
+	},
+	"version": 1
+}

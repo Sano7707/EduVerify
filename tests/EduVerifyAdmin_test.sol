@@ -2,9 +2,9 @@
 pragma solidity ^0.8.0;
 
 import "remix_tests.sol";
-import "../contracts/EduVerifyAdmin.sol";
-
+import "../new-contracts/EduVerifyAdmin.sol";
 import "./Governor.sol";
+
 
 contract EduVerifyAdminTest {
     
@@ -30,7 +30,8 @@ contract EduVerifyAdminTest {
         initialGovernors.push(address(governor2));
         initialGovernors.push(address(governor3));
 
-        admin = new EduVerifyAdmin(initialGovernors, eduVerifyAddr);
+        admin = new EduVerifyAdmin(initialGovernors);
+        admin.setEduVerifyAddress(eduVerifyAddr);
     }
 
 

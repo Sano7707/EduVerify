@@ -11,11 +11,6 @@
 						"internalType": "address[]",
 						"name": "_initialGovernors",
 						"type": "address[]"
-					},
-					{
-						"internalType": "address",
-						"name": "_eduVerify",
-						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -218,6 +213,25 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "governors",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "proposalId",
 						"type": "uint256"
 					},
@@ -352,19 +366,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "totalGovernors",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -414,11 +415,11 @@
 			]
 		},
 		"new-contracts/EduVerifyAdmin.sol": {
-			"keccak256": "0x64442105acec384ac5fe459e85e23f9e8de21582036dcf4954c0111128867fcc",
+			"keccak256": "0x6504b552153c1500f00ebcde6ec3e1266f15c0e88b27b0fae536eb13ee29cb70",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://295aea9d6e77d3bdcdbd9204ba02cc7e882ca33f3053b24d3b6ef3b84a84bbce",
-				"dweb:/ipfs/QmdsJUsM3j6aSAo13Gs1Yv8JtJDCKZqbJ2KvQJq5LxBrb1"
+				"bzz-raw://4a8c5e94d54eee8659cab0f9367fdffcf3b352c5f4a0895b3d6df009447a0551",
+				"dweb:/ipfs/QmaARp4THw7hhDPbxg88eAQJEoT6qbnpafAKaJNKpwJrK8"
 			]
 		}
 	},
