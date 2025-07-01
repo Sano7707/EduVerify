@@ -1,0 +1,282 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "ada",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "adasd",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "beforeAll",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "dasdas",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalPrasdadsoposals22",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalPropadsadsosals22",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalPropdasosals2",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalPropos424als22",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals122",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals2",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals21",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals22",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals222",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals2232",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals22342",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals2299",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals2552",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals265",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals2672",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals2772",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals288",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals32",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals422",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals442",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals452",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricalProposals662",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testHistoricaladsadsProposals2",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "testInitialSetup",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"tests/dai.sol": "dai"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/utils/cryptography/ECDSA.sol": {
+			"keccak256": "0x69f54c02b7d81d505910ec198c11ed4c6a728418a868b906b4a0cf29946fda84",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://8e25e4bdb7ae1f21d23bfee996e22736fc0ab44cfabedac82a757b1edc5623b9",
+				"dweb:/ipfs/QmQdWQvB6JCP9ZMbzi8EvQ1PTETqkcTWrbcVurS7DKpa5n"
+			]
+		},
+		"new-contracts/EduVerify.sol": {
+			"keccak256": "0x4af3a018cfaaa7a158e60d798ea46a967495926a619766033416808319e64cca",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://31875aff9ffd4c2ff08ddcc4fd33b38a8a298fd72cea89bc1c06aa328dd842ce",
+				"dweb:/ipfs/QmdKtZXMcYFHbN2UMQ1Czs9L1RsNdpB1DSjbXhJSE5CULi"
+			]
+		},
+		"new-contracts/EduVerifyAdmin.sol": {
+			"keccak256": "0x6504b552153c1500f00ebcde6ec3e1266f15c0e88b27b0fae536eb13ee29cb70",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://4a8c5e94d54eee8659cab0f9367fdffcf3b352c5f4a0895b3d6df009447a0551",
+				"dweb:/ipfs/QmaARp4THw7hhDPbxg88eAQJEoT6qbnpafAKaJNKpwJrK8"
+			]
+		},
+		"remix_tests.sol": {
+			"keccak256": "0xe2783cdc204cba8c72494119339f1d90f9022b15d6c718c668b7f097d8e29787",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://bb6a22e64c7f16bcaab63b1c1a1b269d5be8a6d37bdd9dec1718477ab916b18e",
+				"dweb:/ipfs/QmdkW1tT5iadBvaHMCoskhDGZKnfdg8o1D9CcoQYtdJet7"
+			]
+		},
+		"tests/Governor.sol": {
+			"keccak256": "0x3802420c5cbcbfcb57ea2233ea026b0fc08afd106f92d59f6bc00cb67fc60c58",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://689425a5a7b066eff1506db125acdd987d21c86c3a1442138e8764195d828932",
+				"dweb:/ipfs/QmSd2sKVCVWtRncTGiwy8pbrJcPLA8StnhLPG6DeGi5qgj"
+			]
+		},
+		"tests/dai.sol": {
+			"keccak256": "0x8db4810b6eed091e1e55190e86872e5202052699e84b1b3be297e30109c7ddb9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://df0892148aaac2db78af9c02f193b2962f6705e848287ac5cc200115f5a6ed61",
+				"dweb:/ipfs/QmbF6HtP1QBh8u2sYmDz9y7ZQnsaYYxaJx3zJ1dLskH9hs"
+			]
+		}
+	},
+	"version": 1
+}
