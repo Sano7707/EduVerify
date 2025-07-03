@@ -4,19 +4,6 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "institution",
-				"type": "address"
-			}
-		],
-		"name": "authorizeInstitution",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
 				"name": "_adminContract",
 				"type": "address"
 			}
@@ -76,57 +63,6 @@
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "credentialId",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "studentName",
-				"type": "string"
-			},
-			{
-				"internalType": "address",
-				"name": "studentAddress",
-				"type": "address"
-			},
-			{
-				"internalType": "string",
-				"name": "institution",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "degree",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "cid",
-				"type": "string"
-			}
-		],
-		"name": "issueCredential",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "institution",
-				"type": "address"
-			}
-		],
-		"name": "revokeInstitution",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"name": "adminContract",
 		"outputs": [
@@ -137,6 +73,19 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "institution",
+				"type": "address"
+			}
+		],
+		"name": "authorizeInstitution",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -213,11 +162,6 @@
 		"outputs": [
 			{
 				"internalType": "string",
-				"name": "studentName",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
 				"name": "institution",
 				"type": "string"
 			},
@@ -269,11 +213,6 @@
 				"components": [
 					{
 						"internalType": "string",
-						"name": "studentName",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
 						"name": "institution",
 						"type": "string"
 					},
@@ -323,11 +262,6 @@
 		"outputs": [
 			{
 				"components": [
-					{
-						"internalType": "string",
-						"name": "studentName",
-						"type": "string"
-					},
 					{
 						"internalType": "string",
 						"name": "institution",
@@ -400,11 +334,6 @@
 				"components": [
 					{
 						"internalType": "string",
-						"name": "studentName",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
 						"name": "institution",
 						"type": "string"
 					},
@@ -464,6 +393,52 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "credentialId",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "studentAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "institution",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "degree",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "cid",
+				"type": "string"
+			}
+		],
+		"name": "issueCredential",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "institution",
+				"type": "address"
+			}
+		],
+		"name": "revokeInstitution",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{

@@ -34,7 +34,6 @@ const VerifyCredential = ({ contract }) => {
       }
             
       setCredentialData({
-        studentName: credential.studentName,
         institution: credential.institution,
         degree: credential.degree,
         issueDate: new Date(Number(credential.issueDate) * 1000).toLocaleDateString(),

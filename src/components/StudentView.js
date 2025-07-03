@@ -76,7 +76,7 @@ const StudentView = ({ contract, account }) => {
                         </div>
                         <Button 
                           variant="primary"
-                          onClick={() => openDocument(cred.cid, `${cred.studentName}-${cred.degree}.pdf`)}
+                          onClick={() => openDocument(cred.cid, `${cred.cid}-${cred.degree}.pdf`)}
                         >
                           View Document
                         </Button>

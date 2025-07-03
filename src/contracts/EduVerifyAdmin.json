@@ -1,5 +1,4 @@
 {
-
     "abi": [
 	{
 		"inputs": [
@@ -7,11 +6,6 @@
 				"internalType": "address[]",
 				"name": "_initialGovernors",
 				"type": "address[]"
-			},
-			{
-				"internalType": "address",
-				"name": "_eduVerify",
-				"type": "address"
 			}
 		],
 		"stateMutability": "nonpayable",
@@ -257,7 +251,7 @@
 		"inputs": [
 			{
 				"internalType": "address",
-				"name": "account",
+				"name": "",
 				"type": "address"
 			}
 		],

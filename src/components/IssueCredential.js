@@ -51,7 +51,6 @@ const IssueCredential = ({ contract, account }) => {
       
       const params = [
         formData.credentialId,
-        /* formData.studentName, */'',
         formData.studentAddress,
         formData.institution,
         formData.degree,
@@ -99,18 +98,6 @@ const IssueCredential = ({ contract, account }) => {
             />
           </Form.Group>
           
-{/*           <Form.Group className="mb-3">
-            <Form.Label>Student Name</Form.Label>
-            <Form.Control
-              type="text"
-              name="studentName"
-              value={formData.studentName}
-              onChange={handleChange}
-              required
-              placeholder="Enter student's full name"
-            />
-          </Form.Group>
- */}          
           <Form.Group className="mb-3">
             <Form.Label>Student Wallet Address</Form.Label>
             <Form.Control

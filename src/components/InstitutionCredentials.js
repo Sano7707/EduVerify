@@ -19,7 +19,6 @@ const InstitutionCredentials = ({ contract, account }) => {
             
             return {
               id,
-              studentName: credential.studentName,
               institution: credential.institution,
               degree: credential.degree,
               issueDate: new Date(Number(credential.issueDate) * 1000).toLocaleDateString(),
