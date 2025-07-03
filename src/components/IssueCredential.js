@@ -5,7 +5,6 @@ import { uploadToPinata,getFileDownloadLink } from '../utils/pinata';
 const IssueCredential = ({ contract, account }) => {
   const [formData, setFormData] = useState({
     credentialId: '',
-    studentName: '',
     studentAddress: '',
     institution: '',
     degree: '',
@@ -31,7 +30,6 @@ const IssueCredential = ({ contract, account }) => {
 
     try {
       if (!formData.credentialId || 
-          !formData.studentName || 
           !formData.studentAddress || 
           !formData.institution || 
           !formData.degree || 
@@ -53,7 +51,7 @@ const IssueCredential = ({ contract, account }) => {
       
       const params = [
         formData.credentialId,
-        formData.studentName,
+        /* formData.studentName, */'',
         formData.studentAddress,
         formData.institution,
         formData.degree,
@@ -68,7 +66,6 @@ const IssueCredential = ({ contract, account }) => {
       
       setFormData({
         credentialId: '',
-        studentName: '',
         studentAddress: '',
         institution: '',
         degree: '',
@@ -102,7 +99,7 @@ const IssueCredential = ({ contract, account }) => {
             />
           </Form.Group>
           
-          <Form.Group className="mb-3">
+{/*           <Form.Group className="mb-3">
             <Form.Label>Student Name</Form.Label>
             <Form.Control
               type="text"
@@ -113,7 +110,7 @@ const IssueCredential = ({ contract, account }) => {
               placeholder="Enter student's full name"
             />
           </Form.Group>
-          
+ */}          
           <Form.Group className="mb-3">
             <Form.Label>Student Wallet Address</Form.Label>
             <Form.Control
