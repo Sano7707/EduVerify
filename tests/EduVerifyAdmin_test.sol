@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: UniTrento
 pragma solidity ^0.8.0;
 
 import "remix_tests.sol";

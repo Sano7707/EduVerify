@@ -1,7 +1,7 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: UniTrento
 pragma solidity ^0.8.0;
 
-import "../new-contracts/EduVerifyAdmin.sol";
+import "../contracts/EduVerifyAdmin.sol";
 
 contract Governor {
 
