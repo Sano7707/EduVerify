@@ -489,7 +489,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"new-contracts/EduVerify.sol": "EduVerify"
+			"contracts/EduVerify.sol": "EduVerify"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -497,13 +497,13 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
 	},
 	"sources": {
-		"new-contracts/EduVerify.sol": {
+		"contracts/EduVerify.sol": {
 			"keccak256": "0x4af3a018cfaaa7a158e60d798ea46a967495926a619766033416808319e64cca",
 			"license": "MIT",
 			"urls": [

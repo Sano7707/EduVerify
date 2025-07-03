@@ -6,32 +6,27 @@ import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 contract EduVerifyAdmin {
     
     using ECDSA for bytes32;
-    
     enum Action { AddInstitution, RevokeInstitution, AddGovernor, RevokeGovernor }
 
-    struct Proposal {
-        uint256 id;                             //unique identifier of the proposal
-        Action action;                          //type of action of the proposal
-        address target;                         //address subject of the proposal
-        uint256 yesVotes;                       //number of yes votes
-        uint256 snapshotGovernorCount;          //number of governors at the moment of the proposal
-        bool executed;                          //quorum is reached and proposal is made effective
-        mapping(address => bool) hasVoted;      //mapping to identify if a specific governor has voted or not
-    }
-
     /*
-        Three governors at the start, on which we have initial trust (Multi-Sig model).
-        Each of them can use a proposal for: authorize or revoke institutions; add another governor or remove a governor.    
-    */
+        Three governers at the start, on which we have initial trust.
 
-    //to cheack easier if an addr is a governor without loops
-    mapping(address => bool) public isGovernor;
-    //to store the governors
-    address[] public governors;
-    //address of other SC
-    address public eduVerify;
+        Each of them can use a proposal: authorize or revoke institutions; add another governer or remove the governer.    
+    */
     
-    //history of all proposals
+    struct Proposal {
+        uint256 id;
+        Action action;
+        address target;
+        uint256 yesVotes;
+        uint256 snapshotGovernorCount;  //number of governers
+        bool executed;                  //quorum is reached
+        mapping(address => bool) hasVoted;
+    }
+    
+    address[] public governors;
+    address public eduVerify; //address of other SC
+    
     Proposal[] public proposals;
     
     event ProposalCreated(uint256 indexed proposalId, Action action, address target);
@@ -41,32 +36,23 @@ contract EduVerifyAdmin {
     event GovernorRemoved(address indexed governor);
     
     modifier onlyGovernor() {
-        require(isGovernor[msg.sender], "Not a governor");
+        require(isGovernor(msg.sender), "Not a governor");
         _;
     }
     
-    constructor(address[] memory _initialGovernors) {
-
-        uint length = _initialGovernors.length;
-        for (uint i = 0; i < length;) {
-            address governor = _initialGovernors[i];
-            require(governor != address(0), "Invalid governor");
-            require(!isGovernor[governor], "Duplicate governor");
-            isGovernor[governor] = true;
-            governors.push(governor);
-            emit GovernorAdded(governor);
-
-            unchecked{ ++i; }
-        }
-    }
-
-    //we set the address of SC EduVerify once it has been deployed
-    function setEduVerifyAddress(address _eduVerify) external onlyGovernor {
-        require(eduVerify == address(0), "Address already set");
+    constructor(address[] memory _initialGovernors, address _eduVerify) {
+        governors = _initialGovernors;
         eduVerify = _eduVerify;
     }
     
-    function calculateThreshold() external view returns(uint) {
+    function isGovernor(address account) public view returns(bool) {
+        for(uint i = 0; i < governors.length; i++) {
+            if(governors[i] == account) return true;
+        }
+        return false;
+    }
+    
+    function calculateThreshold() public view returns(uint) {
         return (governors.length / 2) + 1;
     }
     
@@ -110,55 +96,51 @@ contract EduVerifyAdmin {
             require(success, "Revocation failed");
         }
         else if(proposal.action == Action.AddGovernor) {
-            address _addr_target = proposal.target;
-            require(!isGovernor[_addr_target], "Target is already a governor");
-            isGovernor[_addr_target] = true;
-            governors.push(_addr_target);
-            emit GovernorAdded(_addr_target);
+            require(!isGovernor(proposal.target), "Target is already a governor");
+            governors.push(proposal.target);
+            emit GovernorAdded(proposal.target);
         }
         else if(proposal.action == Action.RevokeGovernor) {
-            address _addr_target = proposal.target;
-            require(isGovernor[_addr_target], "Not a governor");
-            require(governors.length >= 2, "Two governors cannot remove each other");
-            isGovernor[_addr_target] = false;
-
-            uint length = governors.length;            
-            for (uint i = 0; i < length;) {
-                if (governors[i] == _addr_target) {
-                    governors[i] = governors[length - 1];
+            require(isGovernor(proposal.target), "Not a governor");
+            require(governorCount() >= 2, "Two governors cannot remove each other");
+            for(uint i = 0; i < governors.length; i++) {
+                if(governors[i] == proposal.target) {
+                    governors[i] = governors[governors.length-1];
                     governors.pop();
+                    emit GovernorRemoved(proposal.target);
                     break;
                 }
-                unchecked{ ++i; }
             }
-            
-            emit GovernorRemoved(proposal.target);
         }
         
         proposal.executed = true;
         emit ProposalExecuted(proposalId);
     }
     
-    function getProposalDetails(uint proposalId) external view returns(Action action, address target, uint yesVotes, uint snapshotGovernorCount,  bool executed) {
+    function getProposalDetails(uint proposalId) public view returns( Action action, address target, uint yesVotes, uint snapshotGovernorCount,  bool executed) {
         Proposal storage p = proposals[proposalId];
         return (p.action, p.target, p.yesVotes, p.snapshotGovernorCount, p.executed);
     }
     
-    function getThresholdForProposal(uint proposalId) external view returns(uint) {
+    function getThresholdForProposal(uint proposalId) public view returns(uint) {
         Proposal storage p = proposals[proposalId];
         return (p.snapshotGovernorCount / 2) + 1;
     }
     
-    function hasVoted(uint proposalId, address governor) external view returns(bool) {
+    function hasVoted(uint proposalId, address governor) public view returns(bool) {
         return proposals[proposalId].hasVoted[governor];
     }
     
-    function proposalCount() external view returns(uint) {
+    function proposalCount() public view returns(uint) {
         return proposals.length;
     }
     
-    function governorCount() external view returns(uint) {
+    function governorCount() public view returns(uint) {
         return governors.length;
     }
 
+    function setEduVerifyAddress(address _eduVerify) external onlyGovernor {
+        require(eduVerify == address(0), "Address already set");
+        eduVerify = _eduVerify;
+    }
 }

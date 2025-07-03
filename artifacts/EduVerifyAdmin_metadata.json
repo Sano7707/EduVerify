@@ -392,7 +392,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"new-contracts/EduVerifyAdmin.sol": "EduVerifyAdmin"
+			"contracts/EduVerifyAdmin.sol": "EduVerifyAdmin"
 		},
 		"evmVersion": "prague",
 		"libraries": {},
@@ -400,7 +400,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
@@ -414,7 +414,7 @@
 				"dweb:/ipfs/QmQdWQvB6JCP9ZMbzi8EvQ1PTETqkcTWrbcVurS7DKpa5n"
 			]
 		},
-		"new-contracts/EduVerifyAdmin.sol": {
+		"contracts/EduVerifyAdmin.sol": {
 			"keccak256": "0x6504b552153c1500f00ebcde6ec3e1266f15c0e88b27b0fae536eb13ee29cb70",
 			"license": "MIT",
 			"urls": [

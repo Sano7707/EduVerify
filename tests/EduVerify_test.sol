@@ -2,11 +2,10 @@
 pragma solidity ^0.8.0;
 
 import "remix_tests.sol";
-import "../new-contracts/EduVerify.sol";
-import "../new-contracts/EduVerifyAdmin.sol";
+import "../contracts/EduVerify.sol";
+import "../contracts/EduVerifyAdmin.sol";
 import "./Governor.sol";
 import "./Institution.sol";
-import "hardhat/console.sol";
 
 
 contract EduVerifyTest {
