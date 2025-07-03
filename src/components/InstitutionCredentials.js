@@ -61,7 +61,6 @@ const InstitutionCredentials = ({ contract, account }) => {
                 <div className="d-flex justify-content-between">
                   <div>
                     <h6>{cred.degree}</h6>
-                    <div>Student: {cred.studentName}</div>
                     <div>Issued: {cred.issueDate}</div>
                     <div className="text-muted small">
                       CID: {cred.cid}

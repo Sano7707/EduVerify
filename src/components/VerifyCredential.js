@@ -158,7 +158,6 @@ const VerifyCredential = ({ contract }) => {
         {credentialData && verificationResult?.valid && (
           <div className="mt-4">
             <div className="border p-3 rounded bg-light">
-              <p><strong>Student:</strong> {credentialData.studentName}</p>
               <p><strong>Institution:</strong> {credentialData.institution}</p>
               <p><strong>Degree:</strong> {credentialData.degree}</p>
               <p><strong>Issued Date:</strong> {credentialData.issueDate}</p>
