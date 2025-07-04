@@ -22,7 +22,8 @@ const InstitutionCredentials = ({ contract, account }) => {
               institution: credential.institution,
               degree: credential.degree,
               issueDate: new Date(Number(credential.issueDate) * 1000).toLocaleDateString(),
-              cid: credential.cid
+              cid: credential.cid,
+              address: credential.studentAddress
             };
           })
         );
@@ -63,6 +64,9 @@ const InstitutionCredentials = ({ contract, account }) => {
                     <div>Issued: {cred.issueDate}</div>
                     <div className="text-muted small">
                       CID: {cred.cid}
+                    </div>
+                    <div className="text-muted small">
+                      Student's address: {cred.address}
                     </div>
                   </div>
                   <Button 
