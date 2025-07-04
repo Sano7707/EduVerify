@@ -59,18 +59,19 @@ EduVerify is a decentralized platform for issuing, managing, and verifying acade
 1. **Clone the repo**  
     ```bash
     git clone https://github.com/your-username/EduVerify.git
-    cd EduVerify/frontend
+    cd EduVerify
     ```
 2. **Install dependencies**  
     ```bash
     npm install
     ```
 3. **Configure environment**  
-    Create a `.env` file in `frontend/`:
+    Create a `.env.local` file in `frontend/`:
     ```env
-    REACT_APP_EDU_VERIFY_ADDRESS=0x38C56078D2e5F107136546233258eC92FbdCC2f9
-    REACT_APP_GOVERNOR_ADDRESS=0xb77836B0674E9724DaCc42A7B4db0A0beF61fF50
+    REACT_APP_EDU_VERIFY_ADDRESS=0xb82957F92e5519f653f6C9284D38fCA449913Ae8
+    REACT_APP_GOVERNOR_ADDRESS=0xdA943b9AF079ED6Acdc41235621dbCCdd40eBE82
     REACT_APP_PINATA_API_KEY=your_pinata_api_key
+    REACT_APP_PINATA_SECRET_API_KEY=your_pinata_secret_api_key
     REACT_APP_PINATA_JWT=your_pinata_jwt
     ```
 
@@ -89,7 +90,7 @@ EduVerify is a decentralized platform for issuing, managing, and verifying acade
 ### Pinata Setup
 1. Create a [Pinata account](https://www.pinata.cloud/).  
 2. Generate API keys under Dashboard → API Keys.  
-3. Add them to `.env` as shown above.  
+3. Add them to `.env.local` as shown above.  
 
 ---
 
@@ -108,7 +109,6 @@ Use any of these addresses to access the Governor Dashboard.
 
 1. **Start the frontend**  
     ```bash
-    cd frontend
     npm start
     ```
 2. **Open** [http://localhost:3000](http://localhost:3000).  
@@ -125,7 +125,7 @@ Sanasar Hambardzumyan – s.hambardzumyan@studenti.unitn.it
 
 Gabriele Volani – gabriele.volana@studenti.unitn.it
 
-Course: Blockchain Technologies
+Course: Blockchain
 University: UniTrento
 Academic Year: 2024–2025
 
