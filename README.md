@@ -94,17 +94,6 @@ EduVerify is a decentralized platform for issuing, managing, and verifying acade
 
 ---
 
-## Initial-Governance-Setup
-
-Pre-configured governor wallets (multi-sig):
-- `0xGovernorAddress1`  
-- `0xGovernorAddress2`  
-- `0xGovernorAddress3`  
-
-Use any of these addresses to access the Governor Dashboard.
-
----
-
 ## Running-the-Application
 
 1. **Start the frontend**  
