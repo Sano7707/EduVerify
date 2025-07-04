@@ -10,10 +10,9 @@ EduVerify is a decentralized platform for issuing, managing, and verifying acade
 2. [Technology Stack](#technology-stack)  
 3. [Installation Guide](#installation-guide)  
 4. [Configuration](#configuration)  
-5. [Initial Governance Setup](#initial-governance-setup)  
-6. [Running the Application](#running-the-application)  
-7. [Team](#team)  
-8. [License](#license)  
+5. [Running the Application](#running-the-application)  
+6. [Team](#team)  
+7. [License](#license)  
 
 ---
 
